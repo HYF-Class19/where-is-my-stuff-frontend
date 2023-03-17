@@ -15,7 +15,7 @@ Brainstorming is the process of generating ideas and solutions for a problem or 
   
 - We have to review the ideas and determine which are most relevant and feasible for our project.
   
-## 2. **Prioritizing**
+## 2. Prioritizing
 
 Once we have a list of ideas and features for the app, it's important to prioritize them based on their importance and feasibility. To prioritize:
 
@@ -23,7 +23,7 @@ Once we have a list of ideas and features for the app, it's important to priorit
 - We have to consider any constraints or limitations that may affect which features can be developed within the project timeline and technical capability.
 - We have to prioritize the features based on importance, feasibility, and impact on the user experience.
 
-## 3. User Story Dependencies 
+## 3. User Story Dependencies
 
 User stories are a way of describing the APP functionality from the user's perspective. To identify user story dependencies:
 
@@ -47,7 +47,6 @@ Tasks are the specific actions that must be taken to develop and implement each 
 - As a team leader I will assign each task to a team member and set a deadline for completion.
 - As a team leader I will Track the progress of each task and update the project board accordingly.
   
-
 ## 6. Project Board
 
 A project board is a visual tool for tracking the progress of tasks and milestones in a project. I already created the project board and milestone and the task will be divide it after our meeting.
