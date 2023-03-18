@@ -4,7 +4,6 @@
 
  Our project has a fixed timeline of 6 weeks, starting on March 12, 2023, and ending on April 24, 2023. This means that we need to prioritize our tasks and work efficiently to meet our deadlines.
 
-
 ## 2. Technical
 
  Our project is limited by the technical skills and knowledge of our team members. We need to ensure that we are using the appropriate technologies and tools that we are comfortable with to build the app.
