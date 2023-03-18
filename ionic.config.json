@@ -1,0 +1,7 @@
+{
+  "name": "where-is-my-stuff-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
