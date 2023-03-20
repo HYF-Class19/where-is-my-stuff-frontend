@@ -20,16 +20,16 @@
 | Wednesday |15.03.2023 |19:00 - 20:00 | Zoom Meeting | User Persona                            |
 | Thursday  |16.03.2023 |19:00 - 20:00 | Canceled     | Backlog                                 |
 | Friday    |17.03.2023 |19:00 - 20:30 | Zoom Meeting | Backlog, prototype & logo               |
-| Saturday  |18.03.2023 |    -         |   -          |          -                              | 
+| Saturday  |18.03.2023 |    -         |   -          |          -                              |
 
 ### Second Week
 
-| Days      | Date      | Hour         | Where        | Meeting Over                            |
-|----       |------     |------        |-------       |-------------------                      |
-| Sunday    |19.03.2023 |12:00 - 16:00 | Epitech      | Over progress & coaches feedback        |
-| Monday    |20.03.2023 |              |              |                                         |
-| Tuesday   |21.03.2023 |              |              |                                         |
-| Wednesday |23.03.2023 |              |              |                                         |
-| Thursday  |24.03.2023 |              |              |                                         |
-| Friday    |25.03.2023 |              |              |                                         |
-| Saturday  |26.03.2023 |              |              |                                         | 
+| Days      | Date      | Hour         | Where        | Meeting Over                                        |
+|----       |------     |------        |-------       |-------------------                                  |
+| Sunday    |19.03.2023 |12:00 - 16:00 | Epitech      | Over progress & coaches feedback                    |
+| Monday    |20.03.2023 |20:00 - 20:40 | Zoom Meeting | over designing progress                             |
+| Tuesday   |21.03.2023 |19:00 - 20:00 | Zoom Meeting | Improvement over design, logo & development strategy|
+| Wednesday |23.03.2023 |              |              |                                                     |
+| Thursday  |24.03.2023 |              |              |                                                     |
+| Friday    |25.03.2023 |              |              |                                                     |
+| Saturday  |26.03.2023 |              |              |                                                     |
