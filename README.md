@@ -2,9 +2,15 @@
 
 **"Where's My Stuff"** is a mobile app designed to help users keep track of items they have borrowed or lent out. The app self name `LendLog` and it provides an easy-to-use interface for users to input and manage their inventory of items, and includes features like proof of delivery and proof of return to help ensure that items are returned on time. Our team is focused on developing the front-end user interface of the app, with a clean and intuitive design that makes it simple for users to manage their borrowed items on the go.
 
+## Screenshots
+
+![home](./planning/assets/home.png)
+![logo](./planning/assets/Lend%20(3)%201.png)
+
 ## Table of Contents
 
 - [where-is-my-stuff](#where-is-my-stuff)
+  - [Screenshots](#screenshots)
   - [Table of Contents](#table-of-contents)
     - [Installation](#installation)
     - [Usage](#usage)
@@ -35,12 +41,12 @@ The app is still in development and not yet ready, when app fully developed, we 
 
 ### Features
 
-- Ability to create and manage an inventory of items that have been lent or borrowed.
+- Ability to create and manage an inventory of items that have been lent.
 - Option to add a description or notes for each item in the inventory.
 - Ability to track the status of each item (e.g. lent out, returned, etc.).
 - Proof of delivery and proof of return functionality for each item.
 - Search and filter capabilities for the inventory.
-- User authentication and security features.
+<!-- - User authentication and security features. -->
 - Mobile-responsive design for easy use on any device
 
 ### Contributing
@@ -75,6 +81,6 @@ All code changes will be reviewed by members of the development team. Please be 
 
 Thank you for your interest in contributing to Where's My Stuff PROJECT!
 
-### License 
+### License
 
-GNU General Public License (GPL): This is a copyleft license that requires anyone who distributes the software or derivative works to make the source code available under the same license terms. This ensures that the software remains free and open source.
+GNU General Public License (GPL): This is a copy left license that requires anyone who distributes the software or derivative works to make the source code available under the same license terms. This ensures that the software remains free and open source.
