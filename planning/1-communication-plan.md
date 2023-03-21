@@ -29,7 +29,7 @@
 | Sunday    |19.03.2023 |12:00 - 16:00 | Epitech      | Over progress & coaches feedback                    |
 | Monday    |20.03.2023 |20:00 - 20:40 | Zoom Meeting | over designing progress                             |
 | Tuesday   |21.03.2023 |19:00 - 20:00 | Zoom Meeting | Improvement over design, logo & development strategy|
-| Wednesday |23.03.2023 |              |              |                                                     |
+| Wednesday |23.03.2023 |19:00 - 20:00 | Zoom Meeting | Development strategy & start with technical         |
 | Thursday  |24.03.2023 |              |              |                                                     |
 | Friday    |25.03.2023 |              |              |                                                     |
 | Saturday  |26.03.2023 |              |              |                                                     |
