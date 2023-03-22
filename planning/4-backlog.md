@@ -4,32 +4,31 @@ Our project backlog is a prioritized list of features and requirements for the a
 
 ## 1. Must-Have
 
-### Authentication page
+### Header
 
-- [ ] As a user, I want to be able to create an account so that I can keep track of my items.
-- [ ] As a user, I want to be able to add items that I own to the app so that I can keep track of them.
+- [ ] As a user, I can find the logo of the page  and if I click in logo I can return to the home page if i checking something else. .
 
-### Borrowed & Lend button page
 
-- [ ] As a user I want be able to borrow and lend the items.
-- [ ] There is description buttons for lend and borrow
+### Body
 
-### Inventory page
+- [ ] As a user  I want to be able to fill the form ,add picture of borrowed item, date and choose the person whom borrowed item.
+- [ ] As a user I want to be able to see all the items lent out and their current status (e.g. borrowed, returned, overdue). 
+- [ ] As a user I want to be able implement a reminder feature that allows users to set a follow-up date for each item that he lends out, and sends him a notification if the item isn't returned by the specified date. 
+- [ ] As a user I want to be able to see  history page that displays the lending and borrowing history of each item, including dates, borrowers, and return status.
 
-- [ ] As a user, I want to be able to request to borrow an item from another user.
-- [ ] As a user, I want to be able to lend an item to another user who has requested it.
-- [ ] As a user, I want to be able to add items to my inventory quickly and easily, so that I don't forget what I've lent out.
 
+### Footer
+
+Have navigation bar which include : 
+
+- [ ] Home button to help user return to home page.
+- [ ] Remainder button to check the list of closest notification of borrowed items 
 ## 2. Should-Have
 
-- [ ] The app should allow users to create an account using their email address and a password.
-- [ ] The app should allow users to add items to their account by providing the item name, description, and a photo.
-- [ ] The app should allow users to search for items based on keywords or categories.
-- [ ] The app should keep track of users' borrowing and lending history, including the dates and details of each transaction.
-- [ ] As a user, I want to be able to set reminders for when items are due, so that I don't have to keep track of multiple due dates.
+- [ ] As a user  I have  ability to edit or delete items he has lent out if he makes a mistake or if the borrower returns the item early. 
 
 ## 3. Could-Have
 
-- [ ] The app should be user-friendly and easy to navigate.
-- [ ] The app should provide a way for users to report any issues or problems with the app to the support team.
-- [ ] The app should allow owners of items to accept or decline borrowing requests.
+- [ ] As a user I can create a user account and login functionality for the app. 
+- [ ] As a user  I have  ability  to  search and filter feature that allows user to quickly find specific items or borrowers. 
+
