@@ -29,7 +29,30 @@
 | Sunday    |19.03.2023 |12:00 - 16:00 | Epitech      | Over progress & coaches feedback                    |
 | Monday    |20.03.2023 |20:00 - 20:40 | Zoom Meeting | over designing progress                             |
 | Tuesday   |21.03.2023 |19:00 - 20:00 | Zoom Meeting | Improvement over design, logo & development strategy|
-| Wednesday |23.03.2023 |19:00 - 20:00 | Zoom Meeting | Development strategy & start with technical         |
-| Thursday  |24.03.2023 |              |              |                                                     |
-| Friday    |25.03.2023 |              |              |                                                     |
-| Saturday  |26.03.2023 |              |              |                                                     |
+| Wednesday |22.03.2023 |19:00 - 20:00 | Zoom Meeting | Development strategy & start with technical         |
+| Thursday  |23.03.2023 |canceled      | canceled     | fixing design                                       |
+| Friday    |24.03.2023 |18:00 18:30   | Zoom Meeting | development strategy  & update backlog              |
+| Saturday  |25.03.2023 |   -           |     -       |            -                                        |
+
+### Third Week
+
+| Days      | Date      | Hour         | Where        | Meeting Over                                        |
+|----       |------     |------        |-------       |-------------------                                  |
+| Sunday    |26.03.2023 |12:00 - 16:00 | Epitech      | Over progress & coaches feedback specially design   |
+| Monday    |27.03.2023 |              |              |                                                     |
+| Tuesday   |28.03.2023 |              |              |                                                     |
+| Wednesday |29.03.2023 |              |              |                                                     |
+| Thursday  |30.03.2023 |              |              |                                                     |
+| Friday    |31.03.2023 |              |              |                                                     |
+| Saturday  |01.04.2023 |   -          |     -        |            -                                        |
+
+
+## Team Availability / week
+
+|Names  |Hours  |
+|-------|-------|
+|Galal  |36     |
+|Maha   |       |
+|Inna   |       |
+|Anas   |       |
+|Jhon   |       |
