@@ -4,7 +4,7 @@
 
 ## Screenshots
 
-![home](./planning/assets/home.png)
+![home](./planning/assets/screenshot.jpg)
 ![logo](./planning/assets/Lend%20(3)%201.png)
 
 ## Table of Contents
