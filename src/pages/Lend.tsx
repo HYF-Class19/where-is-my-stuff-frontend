@@ -1,5 +1,6 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
+import { lendData } from "../data/LendData";
+import { UserList } from "../components/UserList";
 
 
 export const Lend: React.FC = () => {
@@ -7,16 +8,12 @@ export const Lend: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Lend out items</IonTitle>
+                    <IonTitle  class='ion-text-center'>Lend out items</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Lend out items</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <ExploreContainer />
+                
+                <UserList items={lendData} />
             </IonContent>
         </IonPage>
     );

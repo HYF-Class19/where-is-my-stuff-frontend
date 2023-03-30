@@ -3,8 +3,10 @@ import { IonApp, IonRouterOutlet, setupIonicReact,IonTabs, IonTabBar, IonTabButt
 import { homeOutline, notificationsOutline, enterOutline, exitOutline } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 
-import Home from './pages/Home';
+import {Home} from './pages/Home';
 import { showAlert } from './components/Alert';
+import { Reminder } from './pages/Reminder';
+import { Lend } from './pages/Lend';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,8 +43,8 @@ const App: React.FC = () => (
           <Redirect to="/home" />   
         </Route>
 
-        <Route exact path="/lendoutitems">
-       <h1>Lend Out Items</h1>
+        <Route exact path="/lend">
+      <Lend />
         </Route>
 
         <Route exact path="/borroweditems">
@@ -50,7 +52,7 @@ const App: React.FC = () => (
       </Route>
 
       <Route exact path="/reminder">
-        <h1>Reminder</h1>
+       <Reminder />
       </Route>
 
         </IonReactRouter>
@@ -63,7 +65,7 @@ const App: React.FC = () => (
         <IonLabel>Home</IonLabel>
       </IonTabButton>
    
-      <IonTabButton tab="exit" href = "/lendoutitems">
+      <IonTabButton tab="exit" href = "/lend">
         <IonIcon icon={exitOutline} />
         <IonLabel>Lend out items</IonLabel>
       </IonTabButton>
@@ -71,7 +73,7 @@ const App: React.FC = () => (
         <IonIcon icon={enterOutline} />
         <IonLabel>Borrowed items</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="notifications">
+      <IonTabButton tab="notifications" href = "/reminder">
         <IonIcon icon={notificationsOutline} />
         <IonLabel>Reminder</IonLabel>
       </IonTabButton>
