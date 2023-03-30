@@ -1,12 +1,7 @@
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
 import { homeOutline, notificationsOutline, enterOutline, exitOutline } from 'ionicons/icons';
 import { Route, Redirect } from 'react-router-dom';
-import { IonReactRouter } from '@ionic/react-router';
-
-import { showAlert } from './Alert';
-import { Home } from '../pages/Home';
-import { Lend } from '../pages/Lend';
-import { Reminder } from '../pages/Reminder';
+import Home from '../pages/Home'; 
 
 const Footer: React.FC = () => {
   return (
