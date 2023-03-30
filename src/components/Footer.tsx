@@ -1,54 +1,59 @@
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
 import { homeOutline, notificationsOutline, enterOutline, exitOutline } from 'ionicons/icons';
 import { Route, Redirect } from 'react-router-dom';
-import Home from '../pages/Home'; 
+import { IonReactRouter } from '@ionic/react-router';
 
-const Footer: React.FC = () =>  {
+import { showAlert } from './Alert';
+import { Home } from '../pages/Home';
+import { Lend } from '../pages/Lend';
+import { Reminder } from '../pages/Reminder';
+
+const Footer: React.FC = () => {
   return (
-    <>
-      <IonTabs >
-    <IonRouterOutlet>
-      <Redirect exact path="/" to="/home" />
-      <Route exact path="/home">
-      <Home />
-      </Route>
-      <Route exact path="/reminder">
-        <h1>Reminder</h1>
-      </Route>
-      <Route exact path="/borroweditems">
-        <h1>Borrowed items</h1>
-      </Route>
-      <Route exact path="/lendoutitems">
-        <h1>Lend out items</h1>
-      </Route>
-    </IonRouterOutlet>
+    <IonTabs>
+      <IonRouterOutlet>
+        <IonReactRouter>
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/lend">
+            <Lend />
+          </Route>
+          <Route exact path="/borrow">
+            <h1>Borrowed items</h1>
+          </Route>
+          <Route exact path="/reminder">
+            <Reminder />
+          </Route>
+        </IonReactRouter>
+      </IonRouterOutlet>
 
-    <IonTabBar slot="bottom">
-      <IonTabButton tab="home">
-        <IonIcon icon={homeOutline} />
-        <IonLabel>Home</IonLabel>
-      </IonTabButton>
-   
-      <IonTabButton tab="exit">
-        <IonIcon icon={exitOutline} />
-        <IonLabel>Lend out items</IonLabel>
-      </IonTabButton>
+      <IonTabBar slot="bottom">
+        <IonTabButton tab="home" href="/home">
+          <IonIcon icon={homeOutline} />
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
 
-      <IonTabButton tab="enter">
-        <IonIcon icon={enterOutline} />
-        <IonLabel>Borrowed items</IonLabel>
-      </IonTabButton>
+        <IonTabButton tab="exit" href="/lend">
+          <IonIcon icon={exitOutline} />
+          <IonLabel>Lend out items</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="enter" onClick={showAlert}>
+          <IonIcon icon={enterOutline} />
+          <IonLabel>Borrowed items</IonLabel>
+        </IonTabButton>
+        <IonTabButton tab="notifications" href="/reminder">
+          <IonIcon icon={notificationsOutline} />
+          <IonLabel>Reminder</IonLabel>
+        </IonTabButton>
 
-      <IonTabButton tab="notifications">
-        <IonIcon icon={notificationsOutline} />
-        <IonLabel>Reminder</IonLabel>
-      </IonTabButton>
+      </IonTabBar>
 
-    </IonTabBar>
- 
-  </IonTabs>
-</>
+    </IonTabs>
+
   );
 }
-
 export default Footer;
