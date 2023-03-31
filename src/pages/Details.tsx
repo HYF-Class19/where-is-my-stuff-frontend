@@ -73,7 +73,7 @@ const Details: React.FC = () => {
             <IonLabel>{product.on}</IonLabel>
           </IonItem>
           <IonItem>
-            <IonLabel position="fixed">Reminder</IonLabel>
+            <IonLabel position="fixed">Remiinder</IonLabel>
             <IonLabel>{product.reminder}</IonLabel>
           </IonItem>
         </IonList>
