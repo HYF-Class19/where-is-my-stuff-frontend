@@ -1,8 +1,11 @@
 .reminder {
-    text-align: center;
+  text-align: center;
 }
 
 .icon__nav {
+  color: rgb(236, 236, 222);
+}
+
     color: rgb(236, 236, 222);
 }
 
@@ -10,3 +13,4 @@
     margin-top: 2em;
 
 }
+
