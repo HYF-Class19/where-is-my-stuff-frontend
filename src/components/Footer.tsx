@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         </IonReactRouter>
       </IonRouterOutlet>
 
-      <IonTabBar slot="bottom">
+      <IonTabBar slot="bottom" className='tab-bar-footer'>
         <IonTabButton tab="home" href="/home">
           <IonIcon icon={homeOutline} />
           <IonLabel>Home</IonLabel>
@@ -50,9 +50,7 @@ const Footer: React.FC = () => {
           <IonIcon icon={notificationsOutline} />
           <IonLabel>Reminder</IonLabel>
         </IonTabButton>
-
       </IonTabBar>
-
     </IonTabs>
 
   );
