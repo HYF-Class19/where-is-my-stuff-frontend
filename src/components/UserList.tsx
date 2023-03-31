@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { IonList, IonItem, IonItemDivider, IonLabel, IonIcon, IonModal } from '@ionic/react';
-import {chevronForwardOutline} from 'ionicons/icons';
+import { IonList, IonItem, IonItemDivider, IonLabel, IonIcon, IonModal, IonButton, IonButtons} from '@ionic/react';
+import {chevronForwardOutline , chevronBack} from 'ionicons/icons';
 import './UserList.css';
 
 interface Item {
@@ -28,6 +28,8 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
    // create Modal 
   const [showModal, setShowModal] = useState(false);
 
+
+
   const handleClick = () => {
     setShowModal(true);
   };
@@ -37,7 +39,7 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
   };
 
   return (
-    <IonList>
+    <IonList style={{ marginTop: '30px' }}>
       {groups.map(([letter, items]) => (
         <React.Fragment key={letter}>
           <IonItemDivider class="my-divider" sticky>
@@ -45,20 +47,24 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
           </IonItemDivider>
           
           {items.map(item => (
-            <IonItem  onClick={handleClick}>
-            <IonLabel key={item.id}>
+            <IonItem key={item.id} onClick={handleClick}>
+            <IonLabel >
               {item.name}
             </IonLabel>
             <IonIcon icon={chevronForwardOutline} />
-            <IonModal isOpen={showModal} onDidDismiss={handleClose}>
-             <IonLabel>
-               Here should show the details of the clicked item 
-             </IonLabel>
-           </IonModal>
-
             </IonItem>
             
-          ))}
+            ))}
+            <IonModal isOpen={showModal} onDidDismiss={handleClose}>
+              <IonButtons>
+              <IonButton color="primary" onClick={handleClose}  >
+              <IonIcon slot="start" icon={chevronBack} />
+           Back
+              </IonButton>
+              </IonButtons>
+           </IonModal>
+
+          
         </React.Fragment>
       ))}
     </IonList>
