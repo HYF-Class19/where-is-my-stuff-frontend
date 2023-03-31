@@ -39,7 +39,7 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
   };
 
   return (
-    <IonList>
+    <IonList style={{ marginTop: '30px' }}>
       {groups.map(([letter, items]) => (
         <React.Fragment key={letter}>
           <IonItemDivider class="my-divider" sticky>
