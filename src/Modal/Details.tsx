@@ -1,75 +1,83 @@
-import { IonActionSheet, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonModal, IonTitle, IonToolbar } from "@ionic/react";
-import { chevronBack, ellipsisHorizontal } from "ionicons/icons";
+// src/components/ReminderDetailsModal.tsx
 
-import { UseActionSheet } from '../hooks/UseActionSheet';
+import React from "react";
+import {
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButtons,
+  IonIcon,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+} from "@ionic/react";
+import {
+  chevronBackOutline,
+  ellipsisHorizontalOutline,
+} from "ionicons/icons";
 
-interface ReminderModalProps {
-    isOpen: boolean;
-    onDismiss: () => void;
-    itemName: string;
-    description: string;
-    to: string;
-    on: string;
+interface ReminderDetailsModalProps {
+  isOpen: boolean;
+  onDismiss: () => void;
+  itemName: string;
+  description: string;
+  to: string;
+  on: string;
 }
 
-export const ReminderDetailsModal: React.FC<ReminderModalProps> = ({ isOpen, onDismiss, itemName, description, to, on }) => {
-    const { handleActionSheet, isActionSheetOpen } = UseActionSheet();
-
-    return (
-        <>
-            <IonModal isOpen={isOpen} onDidDismiss={onDismiss}>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonButton onClick={onDismiss}>
-                                <IonIcon icon={chevronBack}></IonIcon>
-                                Back
-                            </IonButton>
-                        </IonButtons>
-                        <IonTitle>Details</IonTitle>
-                        <IonButtons slot="end">
-                            <IonButton
-                                onClick={handleActionSheet}>
-                                <IonIcon icon={ellipsisHorizontal}></IonIcon>
-                            </IonButton>
-                        </IonButtons>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent>
-                    <h1>{itemName}</h1>
-                    <IonInput value={description} />
-                    <IonInput value={to} />
-                    <IonInput value={on} />
-                </IonContent>
-            </IonModal>
-            <IonActionSheet
-                isOpen={isActionSheetOpen}
-                onDidDismiss={() => handleActionSheet()}
-                buttons={[
-                    {
-                        text: 'Delete',
-                        role: 'destructive',
-                        data: {
-                            action: 'delete'
-                        }
-                    },
-                    {
-                        text: 'Share',
-                        data: {
-                            action: 'share'
-                        }
-                    },
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        data: {
-                            action: 'cancel'
-                        }
-                    }
-                ]}></IonActionSheet>
-        </>
-    );
+export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({
+  isOpen,
+  onDismiss,
+  itemName,
+  description,
+  to,
+  on,
+}) => {
+  return (
+    <IonModal isOpen={isOpen} onDidDismiss={onDismiss}>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Details</IonTitle>
+          <IonButtons slot="start">
+            <IonIcon icon={chevronBackOutline} color="primary"></IonIcon>
+            <IonButton onClick={onDismiss}>Back</IonButton>
+          </IonButtons>
+          <IonButtons slot="end">
+            <IonButton>
+              <IonIcon icon={ellipsisHorizontalOutline} color="primary"></IonIcon>
+            </IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+      <IonCard style={{ margin: "0px" }}>
+          <IonCardHeader>
+            <IonCardTitle>{itemName}</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>{description}</IonCardContent>
+        </IonCard>
+        <IonList>
+          <IonItem>
+            <IonLabel position="fixed">To</IonLabel>
+            <IonLabel>{to}</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel position="fixed">On</IonLabel>
+            <IonLabel>{on}</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel position="fixed">Reminder</IonLabel>
+            <IonLabel>{on}</IonLabel>
+          </IonItem>
+        </IonList>
+      </IonContent>
+    </IonModal>
+  );
 };
-
-
-
