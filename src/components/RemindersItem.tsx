@@ -4,7 +4,7 @@ import { chevronForward } from "ionicons/icons";
 
 import { reminders } from "../data/MockUpData";
 import { useReminder } from "../hooks/UseReminder";
-// import { ReminderDetailsModal } from '../Modal/Details';
+import { ReminderDetailsModal } from '../Modal/Details';
 
 
 interface ReminderProps { }
@@ -29,14 +29,14 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
                     </React.Fragment>
                 ))}
             </IonList>
-            {/* <ReminderDetailsModal
+            { <ReminderDetailsModal
                 isOpen={isModalOpen}
                 onDismiss={handleModalDismiss}
                 itemName={selectedReminder?.itemName ?? ""}
                 description={selectedReminder?.description ?? ""}
                 to={selectedReminder?.to ?? ""}
                 on={selectedReminder?.on ?? ""}
-            /> */}
+            /> }
         </div>
     );
 };
