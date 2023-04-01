@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { IonActionSheet, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonModal, IonTitle, IonToolbar } from "@ionic/react";
 import { chevronBack, ellipsisHorizontal } from "ionicons/icons";
 
+import { UseActionSheet } from '../hooks/UseActionSheet';
 
 interface ReminderModalProps {
     isOpen: boolean;
@@ -13,17 +13,7 @@ interface ReminderModalProps {
 }
 
 export const ReminderDetailsModal: React.FC<ReminderModalProps> = ({ isOpen, onDismiss, itemName, description, to, on }) => {
-    const [showActionSheet, setShowActionSheet] = useState(false);
-
-    const handleDelete = () => {
-        // handle delete logic here
-        onDismiss();
-    };
-
-    const handleUpdate = () => {
-        // handle update logic here
-    };
-
+    const { handleActionSheet, isActionSheetOpen } = UseActionSheet();
 
     return (
         <>
@@ -39,8 +29,7 @@ export const ReminderDetailsModal: React.FC<ReminderModalProps> = ({ isOpen, onD
                         <IonTitle>Details</IonTitle>
                         <IonButtons slot="end">
                             <IonButton
-                                onClick={() => setShowActionSheet(true)}
-                            >
+                                onClick={handleActionSheet}>
                                 <IonIcon icon={ellipsisHorizontal}></IonIcon>
                             </IonButton>
                         </IonButtons>
@@ -53,8 +42,34 @@ export const ReminderDetailsModal: React.FC<ReminderModalProps> = ({ isOpen, onD
                     <IonInput value={on} />
                 </IonContent>
             </IonModal>
+            <IonActionSheet
+                isOpen={isActionSheetOpen}
+                onDidDismiss={() => handleActionSheet()}
+                buttons={[
+                    {
+                        text: 'Delete',
+                        role: 'destructive',
+                        data: {
+                            action: 'delete'
+                        }
+                    },
+                    {
+                        text: 'Share',
+                        data: {
+                            action: 'share'
+                        }
+                    },
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        data: {
+                            action: 'cancel'
+                        }
+                    }
+                ]}></IonActionSheet>
         </>
     );
 };
+
 
 
