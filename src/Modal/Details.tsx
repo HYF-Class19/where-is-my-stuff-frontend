@@ -12,7 +12,6 @@ import {
   IonItem,
   IonLabel,
   IonButtons,
-  IonBackButton,
   IonIcon,
   IonCard,
   IonCardContent,
@@ -20,8 +19,6 @@ import {
   IonCardTitle,
 } from "@ionic/react";
 import {
-  arrowBack,
-  chevronBack,
   chevronBackOutline,
   ellipsisHorizontalOutline,
 } from "ionicons/icons";
