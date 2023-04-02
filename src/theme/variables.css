@@ -7,10 +7,7 @@ ion-page{
   --ion-color-primary: #3880ff;
 }
 
-ion-content{
-  --ion-background-color: #e2e2e2;
-  --ion-text-color: #000;
-}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
