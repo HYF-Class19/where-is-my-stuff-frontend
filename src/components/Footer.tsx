@@ -3,7 +3,6 @@ import { homeOutline, notificationsOutline, enterOutline, exitOutline } from 'io
 import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { showAlert } from './Alert';
 import { Home } from '../pages/Home';
 import { Lend } from '../pages/Lend';
 import { Reminder } from '../pages/Reminder';
@@ -42,7 +41,7 @@ const Footer: React.FC = () => {
           <IonIcon icon={exitOutline} />
           <IonLabel>Lend out items</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="enter" onClick={showAlert}>
+        <IonTabButton disabled tab="enter">
           <IonIcon icon={enterOutline} />
           <IonLabel>Borrowed items</IonLabel>
         </IonTabButton>
