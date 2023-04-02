@@ -25,7 +25,6 @@ import {
   chevronBackOutline,
   ellipsisHorizontalOutline,
 } from "ionicons/icons";
-import { Reminder } from "../pages/Reminder";
 
 interface ReminderDetailsModalProps {
   isOpen: boolean;
@@ -53,8 +52,8 @@ export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({
             <IonIcon icon={chevronBackOutline} color="primary"></IonIcon>
             <IonButton onClick={onDismiss}>Back</IonButton>
           </IonButtons>
-          <IonButtons slot="end">
-            <IonButton>
+          <IonButtons slot="end" >
+            <IonButton >
               <IonIcon icon={ellipsisHorizontalOutline} color="primary"></IonIcon>
             </IonButton>
           </IonButtons>
