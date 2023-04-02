@@ -14,6 +14,9 @@ import {
   IonIcon,
   IonTabButton,
   IonList,
+  IonDatetime,
+  IonDatetimeButton,
+  IonModal,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import { exitOutline } from "ionicons/icons";
@@ -62,12 +65,18 @@ const ModalExample = ({
 
           <IonItem>
             <IonLabel>On</IonLabel>
-            <IonInput type="number" placeholder="22 Mar 2023 19:24"></IonInput>
+            <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+            <IonModal keepContentsMounted={true}>
+              <IonDatetime id="datetime"></IonDatetime>
+            </IonModal>
           </IonItem>
 
           <IonItem>
             <IonLabel>Set reminder for</IonLabel>
-            <IonInput type="tel" placeholder="21 Apr 2023 19:24"></IonInput>
+            <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+            <IonModal keepContentsMounted={true}>
+              <IonDatetime id="datetime"></IonDatetime>
+            </IonModal>
           </IonItem>
         </IonList>
       </IonContent>
