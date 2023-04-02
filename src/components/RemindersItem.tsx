@@ -29,14 +29,14 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
                     </React.Fragment>
                 ))}
             </IonList>
-            { <ReminderDetailsModal
+            {<ReminderDetailsModal
                 isOpen={isModalOpen}
                 onDismiss={handleModalDismiss}
                 itemName={selectedReminder?.itemName ?? ""}
                 description={selectedReminder?.description ?? ""}
                 to={selectedReminder?.to ?? ""}
                 on={selectedReminder?.on ?? ""}
-            /> }
+            />}
         </div>
     );
 };

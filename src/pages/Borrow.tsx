@@ -1,5 +1,4 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
 
 export const Borrow: React.FC = () => {
     return (
@@ -15,7 +14,7 @@ export const Borrow: React.FC = () => {
                         <IonTitle size="large">Borrow items</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <ExploreContainer />
+
             </IonContent>
         </IonPage>
     );

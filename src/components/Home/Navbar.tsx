@@ -5,6 +5,7 @@ import {
   IonContent,
   IonHeader,
   IonIcon,
+  IonImg,
   IonMenuButton,
   IonPage,
   IonTabButton,
@@ -26,7 +27,15 @@ const Navbar: React.FC = () => {
               <IonMenuButton></IonMenuButton>
             </IonButtons>
             <IonTitle>
-              <img className="img-logo" src="./assets/logo.png" alt="My logo" />
+              <IonImg src="./assets/logo1.png" style={
+                {
+                  width: "100px", height: "44px",
+                  margin: "2px",
+                  backgroundColor: "#ffffff",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }
+              }></IonImg>
             </IonTitle>
             <IonButtons collapse={true} slot="end">
               <IonButton disabled={true}>Logout</IonButton>
@@ -38,8 +47,8 @@ const Navbar: React.FC = () => {
         </IonContent>
         <IonContent className="btn-home">
           <IonTabButton tab="radio" href="/radio">
-            <IonIcon icon={enterOutline} className="ion-icon" />
-            <IonButton disabled={true}>Borrowed</IonButton>
+            <IonIcon icon={enterOutline} className="ion-icon-borrow" />
+            <IonButton disabled className="ion-button-borrow">Borrowed</IonButton>
           </IonTabButton>
         </IonContent>
       </IonPage>
