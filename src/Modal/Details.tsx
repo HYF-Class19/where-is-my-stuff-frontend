@@ -1,4 +1,3 @@
-import { ActionSheetToDeleteAndUpdate } from "./IonicActiunSheet";
 
 import React, { useState } from "react";
 import {
@@ -18,13 +17,21 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonActionSheet,
-} from "@ionic/react";
+import React from "react";
 import {
-  chevronBackOutline,
-  ellipsisHorizontalOutline,
-} from "ionicons/icons";
+    IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem,
+    IonLabel, IonButtons, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonActionSheet, IonAlert,
+
+} from "@ionic/react";
+import { chevronBackOutline, ellipsisHorizontalOutline } from "ionicons/icons";
+
+import { UseActionSheet } from "../hooks/UseActionSheet";
+import { ActionSheetToDeleteAndUpdate } from "./ActionSheet";
+
+
 
 interface ReminderDetailsModalProps {
+
   isOpen: any;
   onDismiss: () => void;
   itemName: string;
@@ -146,4 +153,3 @@ export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({
             ></IonActionSheet>
     </>
   );
-};
