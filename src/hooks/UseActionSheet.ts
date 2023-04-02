@@ -3,12 +3,12 @@ import { useState } from "react";
 
 
 export const UseActionSheet = () => {
-    const [isActionSheetOpen, setIsActionSheetOpen] = useState(false);
+    const [showActionSheet, setShowActionSheet] = useState(false);
 
     const handleActionSheet = () => {
-        setIsActionSheetOpen(true);
+        setShowActionSheet(!showActionSheet);
+ 
         console.log("is click");
-
     }
 
     const handleDelete = () => {
@@ -24,7 +24,7 @@ export const UseActionSheet = () => {
     }
 
     return {
-        isActionSheetOpen,
+        showActionSheet,
         handleActionSheet,
         handleDelete,
         handleUpdate,
