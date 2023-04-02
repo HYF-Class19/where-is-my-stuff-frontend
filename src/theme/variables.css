@@ -1,10 +1,19 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+ion-page{
+ 
+  --border-radius: 17px;
+  --ion-color-primary: #3880ff;
+}
+
+ion-content{
+  --ion-background-color: #e2e2e2;
+  --ion-text-color: #000;
+}
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
