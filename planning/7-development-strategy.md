@@ -75,6 +75,31 @@ Clone the repository and install dependencies as outlined in the tools for wiref
 
 - As a user, I want to be able to delete an item that I do.
 
+## 4. Tool for Backend
+
+### Firebase
+
+We had some ruminations over the choice of backend tool. Here, we consider a number of factors such as time constraint, learning curve, etc. We had 3 options of tools to choose from.
+
+Firebase, Strapi, and MongoDB are all backend technologies used for developing web and mobile applications. Each of them has its own strengths and weaknesses, and choosing the right one depends on your specific project requirements and constraints.
+
+We decided to choose firebase because it is a cloud-based platform that provides a wide range of tools and services for building and scaling web and mobile applications. It includes features such as real-time database, authentication, hosting, storage, and messaging. Firebase is a popular choice for developers who want to build real-time applications or leverage the power of Google Cloud Platform. It has excellent documentation, an active community, and easy integration with other Google services. Firebase is easy to use and requires minimal setup, making it an ideal choice for small to medium-sized projects.
+
+### Advantages
+
+- Real-time database with excellent synchronization capabilities
+- Easy to set up and integrate with other Google services
+- Hosting, authentication, and storage services included
+- Suitable for small to medium-sized projects
+
+### Disadvantages
+
+- Limited control over server-side logic
+- Limited customizability compared to other backend technologies
+- Data queries and operations can be expensive
+
+In short, we chose firebase because it is ideal for small to medium-sized projects, and it is easy to learn and use, with real-time requirements and easy integration with other Google services.
+
 ## Note
 
 "Dear team members,
