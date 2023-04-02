@@ -12,7 +12,6 @@ import {
   IonItem,
   IonLabel,
   IonButtons,
-  IonBackButton,
   IonIcon,
   IonCard,
   IonCardContent,
@@ -20,12 +19,9 @@ import {
   IonCardTitle,
 } from "@ionic/react";
 import {
-  arrowBack,
-  chevronBack,
   chevronBackOutline,
   ellipsisHorizontalOutline,
 } from "ionicons/icons";
-import { Reminder } from "../pages/Reminder";
 
 interface ReminderDetailsModalProps {
   isOpen: boolean;
