@@ -1,11 +1,12 @@
 # where-is-my-stuff
 
-**"Where's My Stuff"** is a mobile app designed to help users keep track of items they have borrowed or lent out. The app self name `LendLog` and it provides an easy-to-use interface for users to input and manage their inventory of items, and includes features like proof of delivery and proof of return to help ensure that items are returned on time. Our team is focused on developing the front-end user interface of the app, with a clean and intuitive design that makes it simple for users to manage their borrowed items on the go.
+**"Where's My Stuff"** is a mobile app designed to help users keep track of items they have borrowed or lent out. The app self name `Lend IT` and it provides an easy-to-use interface for users to input and manage their inventory of items, and includes features like proof of delivery and proof of return to help ensure that items are returned on time. Our team is focused on developing the front-end user interface of the app, with a clean and intuitive design that makes it simple for users to manage their borrowed items on the go.
 
 ## Screenshots
 
 ![home](./planning/assets/screenshot.jpg)
 ![logo](./planning/assets/Lend%20(3)%201.png)
+![login](./planning/assets/../../public/assets/screenshoot.png)
 
 ## Table of Contents
 
