@@ -1,0 +1,115 @@
+
+.page-container {
+    max-width: 800px; /* adjust this value as needed */
+    max-height: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+ion-title{
+    text-align: center;
+}
+
+ion-img{
+    width: 100px;
+    height: 44px;
+    background-color: #ffffff;
+    margin: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+}
+
+.message{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#button-group{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#button-login{
+    width: 120px;
+    margin-right: 10px;
+}
+
+.forgot-button{
+    width: 195px;
+    margin-left: 10px;
+    color: #3880ff;
+    border: 1px solid #3880ff;
+    border-radius: 5px;
+}
+
+.google-button{
+    margin-top: 10px;
+    width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subtitle {
+    padding: 10px;
+}
+
+.sign-up-button{
+    margin-top: 10px;
+    width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3880ff;
+    border: 1px solid #3880ff;
+    border-radius: 5px;
+}
+
+
+/* for screens smaller than 768px */
+@media (max-width: 767px) {
+    .page-container {
+        max-width: none;
+        padding: 0;
+    }
+
+    .login-logo {
+        width: 80px;
+        height: 35px;
+        margin: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .button-container > * {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .button-container > ion-button:first-child {
+        margin-bottom: 20px;
+    }
+
+    h1, p {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .sign-up-button {
+        margin: 10px auto;
+        display: block;
+    }
+}
