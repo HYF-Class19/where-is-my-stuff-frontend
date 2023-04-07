@@ -2,9 +2,17 @@
 http://ionicframework.com/docs/theming/ */
 
 ion-page{
- 
   --border-radius: 17px;
   --ion-color-primary: #3880ff;
+}
+
+.app-container{
+  max-width: 1000px; /* adjust this value as needed */
+  max-height: 1200px;
+  margin: 0 auto;
+  border: 1px solid #f3e5e5;
+  border-radius: 17px;
+  margin-bottom: 20px;
 }
 
 
