@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import { IonList, IonItem, IonItemDivider, IonLabel, IonIcon, IonModal, IonButton, IonButtons} from '@ionic/react';
-import {chevronForwardOutline , chevronBack} from 'ionicons/icons';
+import React, { useState } from 'react';
+import { IonList, IonItem, IonItemDivider, IonLabel, IonIcon, IonModal, IonButton, IonButtons } from '@ionic/react';
+import { chevronForwardOutline, chevronBack } from 'ionicons/icons';
 import './UserList.css';
+import { getDatabase, ref, child, get } from "firebase/database";
 
 interface Item {
   id: string;
@@ -11,6 +12,22 @@ interface Item {
 interface UserListProps {
   items: Item[];
 }
+
+
+const dbRef = ref(getDatabase());
+get(child(dbRef, 'items')).then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
+
+
+
 
 export const UserList: React.FC<UserListProps> = ({ items }) => {
   // Create an object to group the items by their first letter
@@ -23,9 +40,9 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
     groupedItems[firstLetter].push(item);
   });
 
-    // Convert the object to an array of groups
-    const groups = Object.entries(groupedItems).sort(([a], [b]) => a.localeCompare(b));
-   // create Modal 
+  // Convert the object to an array of groups
+  const groups = Object.entries(groupedItems).sort(([a], [b]) => a.localeCompare(b));
+  // create Modal 
   const [showModal, setShowModal] = useState(false);
 
 
@@ -45,29 +62,29 @@ export const UserList: React.FC<UserListProps> = ({ items }) => {
           <IonItemDivider class="my-divider" sticky>
             {letter}
           </IonItemDivider>
-          
+
           {items.map(item => (
             <IonItem key={item.id} onClick={handleClick}>
-            <IonLabel >
-              {item.name}
-            </IonLabel>
-            <IonIcon icon={chevronForwardOutline} />
+              <IonLabel >
+                {item.name}
+              </IonLabel>
+              <IonIcon icon={chevronForwardOutline} />
             </IonItem>
-            
-            ))}
-            <IonModal isOpen={showModal} onDidDismiss={handleClose}>
-              <IonButtons>
-              <IonButton color="primary" onClick={handleClose}  >
-              <IonIcon slot="start" icon={chevronBack} />
-           Back
-              </IonButton>
-              </IonButtons>
-           </IonModal>
 
-          
+          ))}
+          <IonModal isOpen={showModal} onDidDismiss={handleClose}>
+            <IonButtons>
+              <IonButton color="primary" onClick={handleClose}  >
+                <IonIcon slot="start" icon={chevronBack} />
+                Back
+              </IonButton>
+            </IonButtons>
+          </IonModal>
+
+
         </React.Fragment>
       ))}
     </IonList>
   )
-          
+
 }
