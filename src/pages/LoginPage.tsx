@@ -22,7 +22,7 @@ export const LoginPage: React.FC = () => {
             setShowSuccess(true);
             setTimeout(() => {
                 setShowFooter(true);
-            }, 2000);
+            }, 1000);
         } else {
             setError("Invalid username or password");
             setShowError(true);

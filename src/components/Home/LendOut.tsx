@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from "react";
 import {
   IonButtons,
@@ -20,26 +21,71 @@ import {
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import { exitOutline } from "ionicons/icons";
+import { getDatabase, ref, set } from "firebase/database";
 
-const ModalExample = ({
-  onDismiss,
-}: {
-  onDismiss: (data?: string | null | undefined | number, role?: string) => void;
-}) => {
-  const inputRef = useRef<HTMLIonInputElement>(null);
+
+
+
+function createItem(itemId: string, name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string) {
+  const db = getDatabase();
+  set(ref(db, 'items/' + itemId), {
+    name: name,
+    description: description,
+    borrowerName: borrowerName,
+    lendingDate: lendingDate,
+    reminderDate: reminderDate,
+  });
+}
+
+
+
+
+const ModalExample = () => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [borrowerName, setBorrowerName] = useState('');
+  const [lendingDate, setLendingDate] = useState(
+    new Date().toISOString()
+  );
+  const [reminderDate, setReminderDate] = useState('');
+  const itemId = Math.floor(Math.random() * 1000000).toString();
+
+  // const handleChange = (event: CustomEvent) => {
+  //   const target = event.target as HTMLInputElement;
+  //   setName(target.value);
+  //   setDescription(target.value)
+  //   setBorrowerName(target.value)
+  //   setLendingDate(target.value)
+  //   setReminderDate(target.value)
+
+
+  //   console.log('change');
+
+  // };
+
+  const handleConfirm = () => {
+    createItem(itemId, name, description, borrowerName, lendingDate, reminderDate);
+
+    console.log('confirm');
+  }
+
+
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton color="medium" onClick={() => onDismiss(null, "cancel")}>
+            <IonButton color="medium" 
+            // onClick={() => dismiss()}
+            >
               Cancel
             </IonButton>
           </IonButtons>
           <IonTitle>New lend out </IonTitle>
           <IonButtons slot="end">
             <IonButton
-              onClick={() => onDismiss(inputRef.current?.value, "confirm")}
+              onClick={handleConfirm}
             >
               Confirm
             </IonButton>
@@ -50,32 +96,68 @@ const ModalExample = ({
         <IonList>
           <IonItem>
             <IonLabel>Item name</IonLabel>
-            <IonInput placeholder="Name of the item"></IonInput>
+            <IonInput placeholder="Name of the item"
+              onIonChange={
+                (event: CustomEvent) => {
+                  const target = event.target as HTMLInputElement;
+                  setName(target.value);
+                }
+              }
+
+            ></IonInput>
           </IonItem>
 
           <IonItem>
             <IonLabel>Description</IonLabel>
-            <IonInput placeholder="Description of the item"></IonInput>
+            <IonInput value={description} placeholder="Description of the item" onIonChange={
+              (event: CustomEvent) => {
+                const target = event.target as HTMLInputElement;
+                setDescription(target.value);
+              }
+            }></IonInput>
           </IonItem>
 
           <IonItem>
             <IonLabel>To</IonLabel>
-            <IonInput placeholder="Name of the borrower"></IonInput>
+            <IonInput placeholder="Name of the borrower" onIonChange={
+              (event: CustomEvent) => {
+                const target = event.target as HTMLInputElement;
+                setBorrowerName(target.value);
+              }
+            }></IonInput>
           </IonItem>
 
           <IonItem>
             <IonLabel>On</IonLabel>
             <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
             <IonModal keepContentsMounted={true}>
-              <IonDatetime id="datetime"></IonDatetime>
+              <IonDatetime id="datetime"
+                onIonChange={
+                  (event: CustomEvent) => {
+                    const target = event.target as HTMLInputElement;
+                    setLendingDate(target.value);
+                  }
+                }
+
+              >
+
+
+              </IonDatetime>
             </IonModal>
           </IonItem>
 
           <IonItem>
             <IonLabel>Set reminder for</IonLabel>
-            <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+            <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
             <IonModal keepContentsMounted={true}>
-              <IonDatetime id="datetime"></IonDatetime>
+              <IonDatetime id="reminderTime"
+                onIonChange={
+                  (event: CustomEvent) => {
+                    const target = event.target as HTMLInputElement;
+                    setReminderDate(target.value);
+                  }
+                }
+              ></IonDatetime>
             </IonModal>
           </IonItem>
         </IonList>
