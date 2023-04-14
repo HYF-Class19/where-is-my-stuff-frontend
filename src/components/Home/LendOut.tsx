@@ -42,8 +42,8 @@ const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => vo
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [borrowerName, setBorrowerName] = useState('');
-  const [lendingDate, setLendingDate] = useState(new Date().toISOString());
-  const [reminderDate, setReminderDate] = useState(new Date().toISOString());
+  const [lendingDate, setLendingDate] = useState(new Date().toLocaleString());
+  const [reminderDate, setReminderDate] = useState(new Date().toLocaleString());
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastColor, setToastColor] = useState('');
