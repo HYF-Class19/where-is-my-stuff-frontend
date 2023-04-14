@@ -17,9 +17,11 @@ interface ReminderDetailsModalProps {
     description: string;
     to: string;
     on: string;
+    dayOfReturn: string;
+    id: string;
 }
 
-export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({ isOpen, onDismiss, itemName, description, to, on, }) => {
+export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({ isOpen, onDismiss, itemName, description, to, on, dayOfReturn, id}) => {
     const { showActionSheet, handleActionSheet } = UseActionSheet();
 
     return (
@@ -57,7 +59,9 @@ export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({ isOp
                         </IonItem>
                         <IonItem>
                             <IonLabel position="fixed">Reminder</IonLabel>
-                            <IonLabel>{on}</IonLabel>
+                            <IonLabel>
+                                {dayOfReturn}
+                            </IonLabel>
                         </IonItem>
                     </IonList>
                 </IonContent>
@@ -66,7 +70,14 @@ export const ReminderDetailsModal: React.FC<ReminderDetailsModalProps> = ({ isOp
                 isAction={showActionSheet}
                 action="reminder"
                 onDismiss={() => handleActionSheet()}
-                onAction={(action) => console.log(action)} />
+                onAction={(action) => console.log(action)}
+                id={id}
+                itemName={itemName}
+                description={description}
+                borrowerName={to}
+                lendingDate={on}
+                reminderDate={dayOfReturn}
+                 />
         </>
     );
 };
