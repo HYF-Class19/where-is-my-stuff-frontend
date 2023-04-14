@@ -1,20 +1,64 @@
-import { IonActionSheet, IonAlert, IonButton, IonButtons, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { IonActionSheet, IonAlert, IonButton, IonButtons, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonToast, IonInput, IonItem, IonLabel, IonModal, IonTitle, IonToolbar } from "@ionic/react";
 import { UseAlertAction } from "../hooks/UseAlert";
 import { useState } from "react";
+import { child, remove, update } from "firebase/database";
+import { dbRef } from "../db";
 
 interface ActionProps {
     isAction: boolean;
     action: string;
     onDismiss: () => void;
     onAction: (action: string) => void;
+    id: string;
+    itemName: string;
+    description: string;
+    borrowerName: string;
+    lendingDate?: string;
+    reminderDate?: string;
 }
 
-export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAction }: ActionProps) => {
-    const { showDeleteWarning, handleDeleteClick, handleDeleteConfirm, handleDeleteCancel } = UseAlertAction();
+export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAction, ...selectedReminder }: ActionProps) => {
+    const { showDeleteWarning, handleDeleteClick, handleDeleteCancel } = UseAlertAction();
     const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [messageDelete, setMessageDelete] = useState("");
+    const [messageUpdate, setMessageUpdate] = useState("");
+
+    const handleDelete = () => {
+        const dbRemindersRef = child(dbRef, `items/${selectedReminder.id}`);
+        remove(dbRemindersRef).then(() => {
+            setTimeout(() => {
+                setMessageDelete("Item deleted successfully.");
+            }, 2000)
+        }).catch((error) => {
+            console.error("Error deleting item:", error);
+        });
+    };
+
+    const handleUpdate = () => {
+        const dbRemindersRef = child(dbRef, `items/${selectedReminder.id}`);
+        const updates = {
+            name: selectedReminder.itemName,
+            description: selectedReminder.description,
+            borrowerName: selectedReminder.borrowerName,
+            lendingDate: selectedReminder.lendingDate,
+            reminderDate: selectedReminder.reminderDate,
+
+        };
+        update(dbRemindersRef, updates).then(() => {
+            setMessageUpdate("Item updated successfully.");
+        }).catch((error) => {
+            console.error("Error updating item:", error);
+        });
+    };
 
     return (
         <>
+            <IonToast
+                isOpen={messageDelete !== ""}
+                onDidDismiss={() => setMessageDelete("")}
+                message={messageDelete}
+                duration={2000}
+            />
             <IonActionSheet
                 isOpen={isAction}
                 onDidDismiss={onDismiss}
@@ -65,7 +109,7 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
                         cssClass: "delete-button",
                         role: 'destructive',
                         handler: () => {
-                            handleDeleteConfirm();
+                            handleDelete()
                             onAction("delete");
                         },
                     },
@@ -101,6 +145,7 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
                         <IonButtons slot="end">
                             <IonButton onClick={() => {
                                 setShowUpdateModal(false);
+                                handleUpdate();
                                 onAction("update");
                             }}>
                                 Update
@@ -115,32 +160,51 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
                 >
                     <IonItem>
                         <IonLabel position="fixed">Item Name</IonLabel>
-                        <IonInput></IonInput>
+                        <IonInput
+                            value={selectedReminder.itemName}
+                            onIonChange={(e) => {
+                                selectedReminder.itemName = e.detail.value!;
+                            }}></IonInput>
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Description</IonLabel>
-                        <IonInput></IonInput>
+                        <IonInput
+                            value={selectedReminder.description}
+                            onIonChange={(e) => {
+                                selectedReminder.description = e.detail.value!;
+                            }}></IonInput>
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Lend To</IonLabel>
-                        <IonInput></IonInput>
+                        <IonInput
+                            value={selectedReminder.borrowerName}
+                            onIonChange={(e) => {
+                                selectedReminder.borrowerName = e.detail.value!;
+                            }}>
+                        </IonInput>
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Lend Date</IonLabel>
                         <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
                         <IonModal keepContentsMounted={true}>
-                            <IonDatetime id="datetime"></IonDatetime>
+                            <IonDatetime id="datetime" value={selectedReminder.lendingDate}></IonDatetime>
                         </IonModal>
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Return Date</IonLabel>
-                        <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+                        <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
                         <IonModal keepContentsMounted={true}>
-                            <IonDatetime id="datetime"></IonDatetime>
+                            <IonDatetime id="reminderTime" value={selectedReminder.reminderDate}></IonDatetime>
                         </IonModal>
                     </IonItem>
                 </IonContent>
             </IonModal>
+            <IonToast
+                isOpen={messageUpdate !== ""}
+                onDidDismiss={() => setMessageUpdate("")}
+                message={messageUpdate}
+                duration={1000}
+            />
         </>
     );
 }

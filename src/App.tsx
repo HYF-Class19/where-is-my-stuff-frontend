@@ -40,16 +40,3 @@ const App: React.FC = () => {
 }
 
 export default App;
-
-
-
-
-
-// function writeUserData(userId: string, name: string, email: string) {
-//   const db = getDatabase();
-//   set(ref(db, 'users/' + userId), {
-//     username: name,
-//     email: email,
-
-//   });
-// }

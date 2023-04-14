@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 export interface Reminder {
-    id: number;
-    itemName: string;
+    id: string;
+    name: string;
     description: string;
-    to: string;
-    on: string;
-    reminder: boolean;
+    borrowerName: string;
+    lendingDate?: string;
+    reminderDate?: string;
 }
 
 export const useReminder = () => {
