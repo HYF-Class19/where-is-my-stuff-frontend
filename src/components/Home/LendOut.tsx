@@ -1,5 +1,4 @@
-
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -18,152 +17,154 @@ import {
   IonDatetime,
   IonDatetimeButton,
   IonModal,
+  IonAlert,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import { exitOutline } from "ionicons/icons";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, push, set } from "firebase/database";
 
-
-
-
-function createItem(itemId: string, name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string) {
+function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string) {
   const db = getDatabase();
-  set(ref(db, 'items/' + itemId), {
+  const newItemRef = push(ref(db, 'items')); 
+  const newItemId = newItemRef.key; 
+  set(newItemRef, {
+    id: newItemId,
     name: name,
     description: description,
     borrowerName: borrowerName,
     lendingDate: lendingDate,
     reminderDate: reminderDate,
   });
+  return newItemId;
 }
 
-
-
-
-const ModalExample = () => {
+const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => void }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [borrowerName, setBorrowerName] = useState('');
-  const [lendingDate, setLendingDate] = useState(
-    new Date().toISOString()
-  );
-  const [reminderDate, setReminderDate] = useState('');
-  const itemId = Math.floor(Math.random() * 1000000).toString();
-
-  // const handleChange = (event: CustomEvent) => {
-  //   const target = event.target as HTMLInputElement;
-  //   setName(target.value);
-  //   setDescription(target.value)
-  //   setBorrowerName(target.value)
-  //   setLendingDate(target.value)
-  //   setReminderDate(target.value)
-
-
-  //   console.log('change');
-
-  // };
+  const [lendingDate, setLendingDate] = useState(new Date().toISOString());
+  const [reminderDate, setReminderDate] = useState(new Date().toISOString());
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastColor, setToastColor] = useState('');
 
   const handleConfirm = () => {
-    createItem(itemId, name, description, borrowerName, lendingDate, reminderDate);
-
-    console.log('confirm');
-  }
-
-
+    const isInputValid = name && description && borrowerName && lendingDate && reminderDate;
+  
+    if (!isInputValid) {
+      displayToast('Please fill out all fields', 'danger');
+    } else {
+      const itemId = createItem(name, description, borrowerName, lendingDate, reminderDate);
+  
+      if (itemId) {
+        displayToast(`Item ${name} created successfully`, 'success');
+        setTimeout(() => onDismiss(), 2000);
+      } else {
+        displayToast('Error creating item', 'danger');
+      }
+    }
+  
+    setTimeout(() => setShowToast(false), 10000);
+  };
+  
+  const displayToast = (message: string, color: string) => {
+    setToastMessage(message);
+    setToastColor(color);
+    setShowToast(true);
+  };
+  
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton color="medium" 
-            // onClick={() => dismiss()}
-            >
-              Cancel
-            </IonButton>
-          </IonButtons>
-          <IonTitle>New lend out </IonTitle>
-          <IonButtons slot="end">
-            <IonButton
-              onClick={handleConfirm}
-            >
-              Confirm
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <IonList>
-          <IonItem>
-            <IonLabel>Item name</IonLabel>
-            <IonInput placeholder="Name of the item"
-              onIonChange={
+    <>
+      <IonAlert
+        isOpen={showToast}
+        message={toastMessage}
+        cssClass={toastColor === 'success' ? 'ion-text-success' : 'ion-text-danger'}
+        buttons={
+          [
+            {
+              text: 'OK',
+              handler: () => {
+                setShowToast(false);
+              }
+            }
+          ]
+        }/>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonButton color="medium"
+                onClick={() => onDismiss()}>Cancel</IonButton>
+            </IonButtons>
+            <IonTitle>New lend out </IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={handleConfirm}>Confirm</IonButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent className="ion-padding">
+          <IonList>
+            <IonItem>
+              <IonLabel>Item name</IonLabel>
+              <IonInput placeholder="Name of the item"
+                onIonChange={(event: CustomEvent) => {
+                    const target = event.target as HTMLInputElement;
+                    setName(target.value);
+                  }}>
+                  </IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Description</IonLabel>
+              <IonInput value={description} placeholder="Description of the item" onIonChange={
                 (event: CustomEvent) => {
                   const target = event.target as HTMLInputElement;
-                  setName(target.value);
+                  setDescription(target.value);
                 }
-              }
-
-            ></IonInput>
-          </IonItem>
-
-          <IonItem>
-            <IonLabel>Description</IonLabel>
-            <IonInput value={description} placeholder="Description of the item" onIonChange={
-              (event: CustomEvent) => {
-                const target = event.target as HTMLInputElement;
-                setDescription(target.value);
-              }
-            }></IonInput>
-          </IonItem>
-
-          <IonItem>
-            <IonLabel>To</IonLabel>
-            <IonInput placeholder="Name of the borrower" onIonChange={
-              (event: CustomEvent) => {
-                const target = event.target as HTMLInputElement;
-                setBorrowerName(target.value);
-              }
-            }></IonInput>
-          </IonItem>
-
-          <IonItem>
-            <IonLabel>On</IonLabel>
-            <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
-            <IonModal keepContentsMounted={true}>
-              <IonDatetime id="datetime"
-                onIonChange={
-                  (event: CustomEvent) => {
-                    const target = event.target as HTMLInputElement;
-                    setLendingDate(target.value);
+              }></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>To</IonLabel>
+              <IonInput placeholder="Name of the borrower" onIonChange={
+                (event: CustomEvent) => {
+                  const target = event.target as HTMLInputElement;
+                  setBorrowerName(target.value);
+                }
+              }></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>On</IonLabel>
+              <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime id="datetime"
+                  onIonChange={
+                    (event: CustomEvent) => {
+                      const target = event.target as HTMLInputElement;
+                      setLendingDate(target.value);
+                    }}>
+                </IonDatetime>
+              </IonModal>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Set reminder for</IonLabel>
+              <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
+              <IonModal keepContentsMounted={true}>
+                <IonDatetime id="reminderTime"
+                  onIonChange={
+                    (event: CustomEvent) => {
+                      const target = event.target as HTMLInputElement;
+                      setReminderDate(target.value);
+                    }
                   }
-                }
-
-              >
-
-
-              </IonDatetime>
-            </IonModal>
-          </IonItem>
-
-          <IonItem>
-            <IonLabel>Set reminder for</IonLabel>
-            <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
-            <IonModal keepContentsMounted={true}>
-              <IonDatetime id="reminderTime"
-                onIonChange={
-                  (event: CustomEvent) => {
-                    const target = event.target as HTMLInputElement;
-                    setReminderDate(target.value);
-                  }
-                }
-              ></IonDatetime>
-            </IonModal>
-          </IonItem>
-        </IonList>
-      </IonContent>
-    </IonPage>
+                ></IonDatetime>
+              </IonModal>
+            </IonItem>
+          </IonList>
+        </IonContent>
+      </IonPage>
+    </>
   );
+
 };
 
 const LendOut: React.FC = () => {
@@ -198,3 +199,4 @@ const LendOut: React.FC = () => {
 };
 
 export default LendOut;
+
