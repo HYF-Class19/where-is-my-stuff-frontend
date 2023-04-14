@@ -16,7 +16,7 @@ import {
     IonItem,
     IonLabel,
 } from '@ionic/react';
-import { chevronBackOutline } from 'ionicons/icons';
+import { chevronBackOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
 import { UseActionSheet } from "../hooks/UseActionSheet";
 import { ActionSheetToDeleteAndUpdate } from "./ActionSheet";
 
@@ -29,8 +29,6 @@ export interface DetailComponentProps {
     to: string;
     on: string;
     handleActionSheet: () => void;
-
-
 }
 export const DetailComponent: React.FC<DetailComponentProps> = ({
     isOpen,
@@ -52,11 +50,11 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                         <IonIcon icon={chevronBackOutline} color="primary" />
                         <IonButton onClick={onDismiss}>Back</IonButton>
                     </IonButtons>
-                    {/* <IonButtons slot="end">
+                    <IonButtons slot="end">
                         <IonButton onClick={handleActionSheet}>
                             <IonIcon icon={ellipsisHorizontalOutline} color="primary" />
                         </IonButton>
-                    </IonButtons> */}
+                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -85,12 +83,7 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                 isAction={showActionSheet}
                 action="reminder"
                 onDismiss={() => handleActionSheet()}
-                onAction={(action) => console.log(action)} 
-                id={''} itemName={''}
-                description={''}
-                borrowerName={''}
-            />
-        </>
+                onAction={(action) => console.log(action)} /></>
     );
 };
 
