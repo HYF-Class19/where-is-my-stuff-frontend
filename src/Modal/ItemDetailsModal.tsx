@@ -83,7 +83,7 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                 isAction={showActionSheet}
                 action="reminder"
                 onDismiss={() => handleActionSheet()}
-                onAction={(action) => console.log(action)} /></>
+                onAction={(action) => console.log(action)} id={''} itemName={''} description={''} borrowerName={''} /></>
     );
 };
 
