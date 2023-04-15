@@ -17,5 +17,6 @@
     "jsx": "react-jsx"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "typeRoots": ["./node_modules/@types", "./src/types"]
+  "typeRoots": ["./node_modules/@types", "./src/types"],
+  "exclude": ["node_modules"]
 }
