@@ -16,10 +16,7 @@ import {
     IonItem,
     IonLabel,
 } from '@ionic/react';
-import { chevronBackOutline, ellipsisHorizontalOutline } from 'ionicons/icons';
-import { UseActionSheet } from "../hooks/UseActionSheet";
-import { ActionSheetToDeleteAndUpdate } from "./ActionSheet";
-
+import { chevronBackOutline } from 'ionicons/icons';
 
 export interface DetailComponentProps {
     isOpen: boolean;
@@ -28,7 +25,7 @@ export interface DetailComponentProps {
     description: string;
     to: string;
     on: string;
-    handleActionSheet: () => void;
+    reminder: string;
 }
 export const DetailComponent: React.FC<DetailComponentProps> = ({
     isOpen,
@@ -37,8 +34,8 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
     description,
     to,
     on,
+    reminder,
 }) => {
-    const { showActionSheet, handleActionSheet } = UseActionSheet();
 
 
     return (
@@ -50,11 +47,6 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                         <IonIcon icon={chevronBackOutline} color="primary" />
                         <IonButton onClick={onDismiss}>Back</IonButton>
                     </IonButtons>
-                    <IonButtons slot="end">
-                        <IonButton onClick={handleActionSheet}>
-                            <IonIcon icon={ellipsisHorizontalOutline} color="primary" />
-                        </IonButton>
-                    </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
@@ -62,7 +54,8 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                     <IonCardHeader>
                         <IonCardTitle>{itemName}</IonCardTitle>
                     </IonCardHeader>
-                    <IonCardContent>{description}</IonCardContent>
+                    <IonCardContent>{description
+                    }</IonCardContent>
                 </IonCard>
                 <IonList>
                     <IonItem>
@@ -75,15 +68,14 @@ export const DetailComponent: React.FC<DetailComponentProps> = ({
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Reminder</IonLabel>
-                        <IonLabel>{on}</IonLabel>
+                        <IonLabel>
+                            {reminder}
+                        </IonLabel>
                     </IonItem>
                 </IonList>
             </IonContent>
-        </IonModal><ActionSheetToDeleteAndUpdate
-                isAction={showActionSheet}
-                action="reminder"
-                onDismiss={() => handleActionSheet()}
-                onAction={(action) => console.log(action)} id={''} itemName={''} description={''} borrowerName={''} /></>
+        </IonModal>
+        </>
     );
 };
 

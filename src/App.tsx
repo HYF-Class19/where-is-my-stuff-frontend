@@ -22,8 +22,6 @@ import { setupIonicReact, IonApp} from '@ionic/react';
 import { LoginPage } from './pages/LoginPage';
 
 
-import './db'
-
 
 setupIonicReact();
 

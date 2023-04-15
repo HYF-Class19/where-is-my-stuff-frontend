@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -21,13 +21,15 @@ import {
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import { exitOutline } from "ionicons/icons";
-import { getDatabase, ref, push, set } from "firebase/database";
+import { child, push, set } from "firebase/database";
+import { User } from "firebase/auth";
+import { dbRef, auth } from "../../database/db";
 
-function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string) {
-  const db = getDatabase();
-  const newItemRef = push(ref(db, 'items')); 
-  const newItemId = newItemRef.key; 
-  set(newItemRef, {
+function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string, userId: string) {
+  const newItemRef = push(child(dbRef, `users/${userId}/items`));
+  const newItemId = newItemRef.key;
+  const itemRef = child(dbRef, `users/${userId}/items/${newItemId}`);
+  set(itemRef, {
     id: newItemId,
     name: name,
     description: description,
@@ -39,40 +41,45 @@ function createItem(name: string, description: string, borrowerName: string, len
 }
 
 const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => void }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [borrowerName, setBorrowerName] = useState('');
-  const [lendingDate, setLendingDate] = useState(new Date().toLocaleString());
-  const [reminderDate, setReminderDate] = useState(new Date().toLocaleString());
+  const [lendingDate, setLendingDate] = useState(new Date().toISOString());
+  const [reminderDate, setReminderDate] = useState(new Date().toISOString());
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastColor, setToastColor] = useState('');
 
-  const handleConfirm = () => {
-    const isInputValid = name && description && borrowerName && lendingDate && reminderDate;
-  
-    if (!isInputValid) {
-      displayToast('Please fill out all fields', 'danger');
-    } else {
-      const itemId = createItem(name, description, borrowerName, lendingDate, reminderDate);
-  
-      if (itemId) {
-        displayToast(`Item ${name} created successfully`, 'success');
-        setTimeout(() => onDismiss(), 2000);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setUser(user);
       } else {
-        displayToast('Error creating item', 'danger');
+        setUser(null);
       }
+    });
+    return unsubscribe;
+  }, []);
+
+  const handleConfirm = () => {
+    if (name === '' || description === '' || borrowerName === '') {
+      displayToast('Please fill in all fields', 'danger');
+    } else {
+      const newItemId = createItem(name, description, borrowerName, lendingDate, reminderDate,
+        user?.uid || ''
+      );
+      displayToast('Item created successfully', 'success');
+      console.log('New item ID:', newItemId);
+      onDismiss();
     }
-  
-    setTimeout(() => setShowToast(false), 10000);
   };
-  
+
   const displayToast = (message: string, color: string) => {
     setToastMessage(message);
     setToastColor(color);
     setShowToast(true);
   };
-  
 
   return (
     <>
@@ -89,7 +96,7 @@ const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => vo
               }
             }
           ]
-        }/>
+        } />
       <IonPage>
         <IonHeader>
           <IonToolbar>
@@ -109,10 +116,10 @@ const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => vo
               <IonLabel>Item name</IonLabel>
               <IonInput placeholder="Name of the item"
                 onIonChange={(event: CustomEvent) => {
-                    const target = event.target as HTMLInputElement;
-                    setName(target.value);
-                  }}>
-                  </IonInput>
+                  const target = event.target as HTMLInputElement;
+                  setName(target.value);
+                }}>
+              </IonInput>
             </IonItem>
             <IonItem>
               <IonLabel>Description</IonLabel>

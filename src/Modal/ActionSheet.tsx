@@ -2,7 +2,9 @@ import { IonActionSheet, IonAlert, IonButton, IonButtons, IonContent, IonDatetim
 import { UseAlertAction } from "../hooks/UseAlert";
 import { useState } from "react";
 import { child, remove, update } from "firebase/database";
-import { dbRef } from "../db";
+import { dbRef, auth } from "../database/db";
+
+
 
 interface ActionProps {
     isAction: boolean;
@@ -22,9 +24,10 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [messageDelete, setMessageDelete] = useState("");
     const [messageUpdate, setMessageUpdate] = useState("");
+    const userId = auth.currentUser?.uid;
 
     const handleDelete = () => {
-        const dbRemindersRef = child(dbRef, `items/${selectedReminder.id}`);
+        const dbRemindersRef = child(dbRef, `users/${userId}/items/${selectedReminder.id}`);
         remove(dbRemindersRef).then(() => {
             setTimeout(() => {
                 setMessageDelete("Item deleted successfully.");
@@ -35,21 +38,24 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
     };
 
     const handleUpdate = () => {
-        const dbRemindersRef = child(dbRef, `items/${selectedReminder.id}`);
+        const dbRemindersRef = child(dbRef, `users/${userId}/items/${selectedReminder.id}`);
+       
         const updates = {
-            name: selectedReminder.itemName,
-            description: selectedReminder.description,
-            borrowerName: selectedReminder.borrowerName,
-            lendingDate: selectedReminder.lendingDate,
-            reminderDate: selectedReminder.reminderDate,
-
+          name: selectedReminder.itemName,
+          description: selectedReminder.description,
+          borrowerName: selectedReminder.borrowerName,
+          lendingDate: selectedReminder.lendingDate,
+          reminderDate: selectedReminder.reminderDate,
         };
-        update(dbRemindersRef, updates).then(() => {
+      
+        update(dbRemindersRef, updates)
+          .then(() => {
             setMessageUpdate("Item updated successfully.");
-        }).catch((error) => {
+          })
+          .catch((error) => {
             console.error("Error updating item:", error);
-        });
-    };
+          });
+      };
 
     return (
         <>
@@ -185,16 +191,21 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Lend Date</IonLabel>
-                        <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
+                        <IonDatetimeButton datetime="datetime"
+                        ></IonDatetimeButton>
                         <IonModal keepContentsMounted={true}>
-                            <IonDatetime id="datetime" value={selectedReminder.lendingDate}></IonDatetime>
+                            <IonDatetime id="datetime"
+                                value={selectedReminder.lendingDate}
+                            ></IonDatetime>
                         </IonModal>
                     </IonItem>
                     <IonItem>
                         <IonLabel position="fixed">Return Date</IonLabel>
                         <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
                         <IonModal keepContentsMounted={true}>
-                            <IonDatetime id="reminderTime" value={selectedReminder.reminderDate}></IonDatetime>
+                            <IonDatetime id="reminderTime"
+                                value={selectedReminder.reminderDate}
+                            ></IonDatetime>
                         </IonModal>
                     </IonItem>
                 </IonContent>

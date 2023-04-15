@@ -9,6 +9,7 @@ import { Reminder } from '../pages/Reminder';
 
 
 const Footer: React.FC = () => {
+
   return (
     <IonTabs>
       <IonRouterOutlet>

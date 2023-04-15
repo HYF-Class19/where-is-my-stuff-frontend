@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword,} from "firebase/auth";
-import {auth} from "../db";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, } from "firebase/auth";
+import { auth } from "../database/db";
 
 export async function registerUser(email: string, password: string) {
   try {

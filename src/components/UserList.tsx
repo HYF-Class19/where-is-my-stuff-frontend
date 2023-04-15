@@ -1,10 +1,12 @@
-import { dbRef } from "../db";
+import { dbRef } from "../database/db";
 import React, { useState, useEffect } from 'react';
 import { IonList, IonItem, IonLabel, IonItemDivider, IonIcon } from '@ionic/react';
 import { chevronForwardOutline } from 'ionicons/icons';
 import { child, get, onValue } from "firebase/database";
 import { DetailComponent, DetailComponentProps } from '../Modal/ItemDetailsModal';
-import './UserList.css'
+import './Style/UserList.css'
+import { getAuth } from "firebase/auth";
+
 interface UserListProps {
   items: {
     id: string;
@@ -20,13 +22,16 @@ interface ItemDetails {
   reminderDate: string;
 }
 
-const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
+const UserList: React.FC<UserListProps> = ({ items }) => {
   const [groupedItems, setGroupedItems] = useState<{ letter: string; items: { id: string; name: string }[] }[]>([]);
   const [selectedItem, setSelectedItem] = useState<{ name: string, details: ItemDetails } | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
+  const userId = currentUser?.uid;
 
   const handleClick = async (item: { id: string, name: string }) => {
-    const itemDetailsRef = child(dbRef, `items/${item.id}`);
+    const itemDetailsRef = child(dbRef, `users/${userId}/items/${item.id}`);
     const itemDetailsSnapshot = await get(itemDetailsRef);
     const itemDetails = itemDetailsSnapshot.val() as ItemDetails;
     setSelectedItem({ name: item.name, details: itemDetails });
@@ -35,7 +40,7 @@ const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
 
   useEffect(() => {
     if (dbRef) {
-      const itemsRef = child(dbRef, 'items');
+      const itemsRef = child(dbRef, `users/${userId}/items`);
       onValue(itemsRef, (snapshot) => {
         const data = snapshot.val();
         const newItems: { id: string; name: string }[] = [];
@@ -44,6 +49,7 @@ const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
             newItems.push({
               id: key,
               name: data[key].name,
+
             });
           });
         }
@@ -64,7 +70,7 @@ const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
         );
       });
     }
-  }, []);
+  }, [userId]);
 
   const closeModal = () => setIsOpen(false);
 
@@ -83,7 +89,7 @@ const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
     setGroupedItems(sortedGrouped);
   }, [items]);
 
-  
+
   return (
     <IonList>
       {groupedItems.map(({ letter, items }) => (
@@ -94,21 +100,22 @@ const UserList: React.FC<UserListProps> = ({ items, detailComponentProps }) => {
           {items.map((item) => (
             <IonItem key={item.id} onClick={() => handleClick(item)}>
               <IonLabel>{item.name}</IonLabel>
-              <IonIcon icon={chevronForwardOutline} />
+              <IonIcon slot="end" icon={chevronForwardOutline} />             
             </IonItem>
           ))}
         </React.Fragment>
       ))}
-      
+
       <DetailComponent isOpen={isOpen} onDismiss={closeModal}
-  itemName={selectedItem?.name || ''}
-  description={selectedItem?.details?.description || ''}
-  to={selectedItem?.details?.borrowerName || ''}
-  on={selectedItem?.details?.lendingDate || ''}
-  handleActionSheet={() => {}} />
-      
-</IonList>
-)}
+        itemName={selectedItem?.name || ''}
+        description={selectedItem?.details?.description || ''}
+        to={selectedItem?.details?.borrowerName || ''}
+        on={selectedItem?.details?.lendingDate || ''}
+        reminder={selectedItem?.details?.reminderDate || ''}
+      />
+    </IonList>
+  )
+}
 
 export default UserList;
 

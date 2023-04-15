@@ -14,10 +14,24 @@ import {
 } from "@ionic/react";
 import { enterOutline } from "ionicons/icons";
 import "./Navbar.css";
+import { useHistory } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../database/db";
 
 import LendOut from "./LendOut";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 const Navbar: React.FC = () => {
+  const history = useHistory();
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        history.push("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <>
       <IonPage id="main-content">
@@ -38,7 +52,9 @@ const Navbar: React.FC = () => {
               }></IonImg>
             </IonTitle>
             <IonButtons collapse={true} slot="end">
-              <IonButton disabled={true}>Logout</IonButton>
+              <IonButton
+                onClick={handleLogout}
+              >Logout</IonButton>
             </IonButtons>
           </IonToolbar>
         </IonHeader>

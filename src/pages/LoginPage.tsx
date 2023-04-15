@@ -13,9 +13,9 @@ import {
 import "./styles/Login.css";
 import { useState } from "react";
 import Footer from "../components/Footer";
-import { loginUser, registerUser } from "../firebase/auth";
+import { loginUser } from "../authentication/auth";
 import Toast from "../Modal/Toast";
-import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -24,15 +24,17 @@ export const LoginPage: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [showFooter, setShowFooter] = useState<boolean>(false);
 
+
   const handleLogin = async () => {
     try {
-      const res=await loginUser(username, password);
-      //if login success then show success toast
-      if (res){
+      const res = await loginUser(username, password);
+      if (res) {
         setShowSuccess(true);
         setShowFooter(true);
-      }
 
+      } else {
+        setShowToast(true);
+      }
     } catch (error) {
       setShowSuccess(false);
       setShowFooter(false);
@@ -51,8 +53,8 @@ export const LoginPage: React.FC = () => {
           <IonContent>
             <IonImg src="./assets/logo1.png" className="login-logo"></IonImg>
             <p className="message">
-            <Toast message="Login Success" isOpen={showSuccess} onDismiss={() => setShowSuccess(false)} />
-            <Toast message="Login Failed" isOpen={showToest} onDismiss={() => setShowToast(false)} />
+              <Toast message="Login Success" isOpen={showSuccess} onDismiss={() => setShowSuccess(false)} />
+              <Toast message="Login Failed" isOpen={showToest} onDismiss={() => setShowToast(false)} />
             </p>
             <IonItem>
               <IonLabel position="fixed">Username</IonLabel>

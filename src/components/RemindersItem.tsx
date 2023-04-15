@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { IonIcon, IonItem, IonItemDivider, IonLabel, IonList } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
 
-import { get, child } from 'firebase/database';
-import { dbRef } from '../db';
+import { getAuth } from 'firebase/auth';
+import { dbRef } from '../database/db';
+import { child, onValue } from 'firebase/database';
 
 import { Reminder, useReminder } from "../hooks/UseReminder";
 import { ReminderDetailsModal } from '../Modal/Details';
@@ -13,37 +14,37 @@ interface ReminderProps { }
 export const RemindersItem: React.FC<ReminderProps> = () => {
     const { selectedReminder, isModalOpen, handleModalDismiss, handleItemClick } = useReminder();
     const [reminders, setReminders] = useState<Reminder[]>([]);
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
 
     useEffect(() => {
-        const dbRemindersRef = child(dbRef, 'items');
-        get(dbRemindersRef).then((snapshot) => {
-            if (snapshot.exists()) {
-                const newReminders: Reminder[] = [];
-                snapshot.forEach((reminderSnapshot) => {
-                    const itemId = reminderSnapshot.key as string;
-                    const itemName = reminderSnapshot.child('name').val();
-                    const itemDescription = reminderSnapshot.child('description').val();
-                    const borrower = reminderSnapshot.child('borrowerName').val();
-                    const lendDate = reminderSnapshot.child('lendingDate').val();
-                    const reminderDate = reminderSnapshot.child('reminderDate').val();
-                    newReminders.push({
-                        id: itemId,
-                        name: itemName,
-                        description: itemDescription,
-                        borrowerName: borrower,
-                        lendingDate: lendDate,
-                        reminderDate: reminderDate,
+        if (currentUser) {
+            const userId = currentUser.uid;
+            const userRemindersRef = child(dbRef, `users/${userId}/items`);
+            onValue(userRemindersRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const newReminders: Reminder[] = [];
+                    snapshot.forEach((reminderSnapshot) => {
+                        const reminderId = reminderSnapshot.key as string;
+                        const reminderData = reminderSnapshot.val();
+                        newReminders.push({
+                            id: reminderId,
+                            name: reminderData.name,
+                            description: reminderData.description,
+                            borrowerName: reminderData.borrowerName,
+                            lendingDate: reminderData.lendingDate,
+                            reminderDate: reminderData.reminderDate,
+                        });
                     });
-                });
-                setReminders(newReminders);
-            } else {
-                console.log('No data available');
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
-    }, [setReminders])
-
+                    setReminders(newReminders);
+                } else {
+                    console.log(`No reminders found for user ${userId}`);
+                }
+            }, (error) => {
+                console.error(error);
+            });
+        }
+    }, [currentUser]);
 
     return (
         <div>
