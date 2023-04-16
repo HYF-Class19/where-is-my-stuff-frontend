@@ -4,7 +4,7 @@ import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, a
 import "./styles/Profile.css";
 import { logoutUser } from "../authentication/auth";
 import { auth } from "../database/db";
-import useAuth from "../hooks/useAuth";
+
 
 
 
@@ -27,15 +27,7 @@ export const Profile: React.FC = () => {
         }
     }
 
-    const { user, loading } = useAuth();
-    // console.log('user', user);
-
-    if (loading) return <IonSpinner />;
-    if (!user) return <IonSpinner />;
-
-
-
-    // show loading
+  
 
     return (
         <>
@@ -111,7 +103,7 @@ export const Profile: React.FC = () => {
                             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"
                             />
                         </IonAvatar>
-                        <h1>{user?.displayName}</h1>
+                  
 
                     </div>
                     <IonCard style={{
