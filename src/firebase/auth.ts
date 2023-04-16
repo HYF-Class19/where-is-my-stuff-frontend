@@ -23,3 +23,13 @@ export async function loginUser(email: string, password: string) {
     return false;
   }
 }
+
+export async function logoutUser() {
+  try {
+    await auth.signOut();
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
