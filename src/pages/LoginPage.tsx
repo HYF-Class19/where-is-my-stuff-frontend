@@ -46,14 +46,6 @@ export const LoginPage: React.FC = () => {
       setShowSuccess(false);
     }
   };
-  const handleFormSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    if (isSignUp) {
-      await handleSignUp();
-    } else {
-      await handleLogin();
-    }
-  };
   const handleSignUp = async () => {
     try {
       const res = await registerUser(email, password);
