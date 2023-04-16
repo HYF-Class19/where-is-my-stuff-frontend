@@ -15,7 +15,6 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import { loginUser } from "../firebase/auth";
 import Toast from "../Modal/Toast";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import useAuth from "../useAuth";
 
 export const LoginPage: React.FC = () => {
