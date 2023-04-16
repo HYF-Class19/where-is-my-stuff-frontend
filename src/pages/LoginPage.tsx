@@ -13,30 +13,38 @@ import {
 import "./styles/Login.css";
 import { useState } from "react";
 import Footer from "../components/Footer";
-import { loginUser, registerUser } from "../firebase/auth";
+import { loginUser } from "../firebase/auth";
 import Toast from "../Modal/Toast";
+import useAuth from "../useAuth";
 
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showToest, setShowToast] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
-  const [showFooter, setShowFooter] = useState<boolean>(false);
+
+  const { user, loading } = useAuth();
 
   const handleLogin = async () => {
     try {
-      const res=await loginUser(username, password);
+      const res = await loginUser(username, password);
       //if login success then show success toast
-      if (res){
+      if (res) {
         setShowSuccess(true);
-        setShowFooter(true);
       }
-
     } catch (error) {
       setShowSuccess(false);
-      setShowFooter(false);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user) {
+    return <Footer />;
+   
+  }
 
   return (
     <>
@@ -50,8 +58,16 @@ export const LoginPage: React.FC = () => {
           <IonContent>
             <IonImg src="./assets/logo1.png" className="login-logo"></IonImg>
             <p className="message">
-            <Toast message="Login Success" isOpen={showSuccess} onDismiss={() => setShowSuccess(false)} />
-            <Toast message="Login Failed" isOpen={showToest} onDismiss={() => setShowToast(false)} />
+              <Toast
+                message="Login Success"
+                isOpen={showSuccess}
+                onDismiss={() => setShowSuccess(false)}
+              />
+              <Toast
+                message="Login Failed"
+                isOpen={showToest}
+                onDismiss={() => setShowToast(false)}
+              />
             </p>
             <IonItem>
               <IonLabel position="fixed">Username</IonLabel>
@@ -99,7 +115,6 @@ export const LoginPage: React.FC = () => {
           </IonContent>
         </IonPage>
       </div>
-      {showFooter && <Footer />}
     </>
   );
 };
