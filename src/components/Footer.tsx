@@ -1,8 +1,9 @@
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
-import { homeOutline, notificationsOutline, enterOutline, exitOutline } from 'ionicons/icons';
+import { homeOutline, notificationsOutline, enterOutline, exitOutline, atOutline, personOutline } from 'ionicons/icons';
 import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 
+import { Profile } from '../pages/profile';
 import { Home } from '../pages/Home';
 import { Lend } from '../pages/Lend';
 import { Reminder } from '../pages/Reminder';
@@ -14,6 +15,9 @@ const Footer: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <IonReactRouter>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
           <Route exact path="/home">
             <Home />
           </Route>
@@ -33,6 +37,10 @@ const Footer: React.FC = () => {
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom" className='tab-bar-footer'>
+        <IonTabButton tab="profile" href="/profile">
+          <IonIcon icon={personOutline} />
+          <IonLabel>Profile</IonLabel>
+        </IonTabButton>
         <IonTabButton tab="home" href="/home">
           <IonIcon icon={homeOutline} />
           <IonLabel>Home</IonLabel>

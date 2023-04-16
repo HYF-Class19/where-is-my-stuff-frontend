@@ -30,8 +30,14 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
   const currentUser = auth.currentUser;
   const userId = currentUser?.uid;
 
+  const emailInfo = currentUser?.email?.replace(/[\[\].#$]/g, '-').split('@gmailcom');
+
+
+
+ 
+
   const handleClick = async (item: { id: string, name: string }) => {
-    const itemDetailsRef = child(dbRef, `users/${userId}/items/${item.id}`);
+    const itemDetailsRef = child(dbRef, `users/${emailInfo}/items/${item.id}`);
     const itemDetailsSnapshot = await get(itemDetailsRef);
     const itemDetails = itemDetailsSnapshot.val() as ItemDetails;
     setSelectedItem({ name: item.name, details: itemDetails });
@@ -40,7 +46,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
 
   useEffect(() => {
     if (dbRef) {
-      const itemsRef = child(dbRef, `users/${userId}/items`);
+      const itemsRef = child(dbRef, `users/${emailInfo}/items`);
       onValue(itemsRef, (snapshot) => {
         const data = snapshot.val();
         const newItems: { id: string; name: string }[] = [];

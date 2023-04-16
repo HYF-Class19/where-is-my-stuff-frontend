@@ -25,10 +25,16 @@ import { child, push, set } from "firebase/database";
 import { User } from "firebase/auth";
 import { dbRef, auth } from "../../database/db";
 
-function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string, userId: string) {
-  const newItemRef = push(child(dbRef, `users/${userId}/items`));
+function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string, email: string) {
+  const sanitizedEmail = email.replace(/[\[\].#$]/g, '-');
+  const emailInfo = sanitizedEmail.split('@gmailcom');
+  const itemsRef = child(dbRef, `users/${emailInfo}/items`);
+  const newItemRef = push(itemsRef);
   const newItemId = newItemRef.key;
-  const itemRef = child(dbRef, `users/${userId}/items/${newItemId}`);
+  const itemRef = child(
+    dbRef,
+    `users/${emailInfo}/items/${newItemId}`
+  );
   set(itemRef, {
     id: newItemId,
     name: name,
@@ -66,9 +72,7 @@ const ModalExample = ({ onDismiss }: { onDismiss: (e?: OverlayEventDetail) => vo
     if (name === '' || description === '' || borrowerName === '') {
       displayToast('Please fill in all fields', 'danger');
     } else {
-      const newItemId = createItem(name, description, borrowerName, lendingDate, reminderDate,
-        user?.uid || ''
-      );
+      const newItemId = createItem(name, description, borrowerName, lendingDate, reminderDate, user?.email || '');
       displayToast('Item created successfully', 'success');
       console.log('New item ID:', newItemId);
       onDismiss();
