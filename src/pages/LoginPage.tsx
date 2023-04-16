@@ -13,10 +13,9 @@ import {
 import "./styles/Login.css";
 import { useState } from "react";
 import Footer from "../components/Footer";
-import { loginUser } from "../firebase/auth";
+import { loginUser, loginwithGoogle, registerUser } from "../firebase/auth";
 import Toast from "../Modal/Toast";
 import useAuth from "../useAuth";
-
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setUserEmail] = useState<string>("");
@@ -24,9 +23,18 @@ export const LoginPage: React.FC = () => {
   const [showToest, setShowToast] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-
   const { user, loading } = useAuth();
-
+  const handleGoogleLogin = async () => {
+    try {
+      const res = await loginwithGoogle();
+      //if login success then show success toast
+      if (res) {
+        setShowSuccess(true);
+      }
+    } catch (error) {
+      setShowSuccess(false);
+    }
+  };
   const handleLogin = async () => {
     try {
       const res = await loginUser(username, password);
@@ -38,7 +46,6 @@ export const LoginPage: React.FC = () => {
       setShowSuccess(false);
     }
   };
-
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (isSignUp) {
@@ -47,7 +54,6 @@ export const LoginPage: React.FC = () => {
       await handleLogin();
     }
   };
-
   const handleSignUp = async () => {
     try {
       const res = await registerUser(email, password);
@@ -58,19 +64,15 @@ export const LoginPage: React.FC = () => {
       setShowSuccess(false);
     }
   };
-
   const toggleFormMode = () => {
     setIsSignUp(!isSignUp);
   };
-
   if (loading) {
     return <div>Loading....</div>;
   }
-
   if (user) {
     return <Footer />;
   }
-
   return (
     <>
       <div>
@@ -142,7 +144,7 @@ export const LoginPage: React.FC = () => {
                 Forgot Password
               </IonButton>
             </div>
-            <IonButton expand="block" color="danger" className="google-button">
+            <IonButton expand="block" color="danger" className="google-button" onClick={handleGoogleLogin}>
               Login with Google
             </IonButton>
             <h1 className="subtitle">Dear user</h1>
