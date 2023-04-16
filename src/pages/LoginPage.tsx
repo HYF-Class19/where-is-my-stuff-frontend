@@ -65,7 +65,7 @@ export const LoginPage: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading....</div>;
   }
 
   if (user) {
@@ -157,7 +157,7 @@ export const LoginPage: React.FC = () => {
               className="sign-up-button"
               onClick={toggleFormMode}
             >
-              {isSignUp ? "Switch to Login" : "Switch to Sign Up"}
+              {isSignUp ? "Switch to Login" : "Sign Up"}
             </IonButton>
           </IonContent>
         </IonPage>
