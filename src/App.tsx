@@ -18,7 +18,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import { setupIonicReact, IonApp} from '@ionic/react';
+import { setupIonicReact, IonApp } from '@ionic/react';
 import { LoginPage } from './pages/LoginPage';
 
 
