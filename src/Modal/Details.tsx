@@ -1,7 +1,7 @@
 import React from "react";
 import {
     IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonItem,
-    IonLabel, IonButtons, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonActionSheet, IonAlert,
+    IonLabel, IonButtons, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle
 } from "@ionic/react";
 import { chevronBackOutline, ellipsisHorizontalOutline } from "ionicons/icons";
 
