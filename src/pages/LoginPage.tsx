@@ -20,9 +20,11 @@ import useAuth from "../useAuth";
 
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>("");
+  const [email, setUserEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showToest, setShowToast] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [isSignUp, setIsSignUp] = useState<boolean>(false);
 
   const { user, loading } = useAuth();
 
@@ -38,13 +40,36 @@ export const LoginPage: React.FC = () => {
     }
   };
 
+  const handleFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (isSignUp) {
+      await handleSignUp();
+    } else {
+      await handleLogin();
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      const res = await registerUser(email, password);
+      if (res) {
+        setShowSuccess(true);
+      }
+    } catch (error) {
+      setShowSuccess(false);
+    }
+  };
+
+  const toggleFormMode = () => {
+    setIsSignUp(!isSignUp);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   if (user) {
     return <Footer />;
-   
   }
 
   return (
@@ -53,7 +78,7 @@ export const LoginPage: React.FC = () => {
         <IonPage className="page-container">
           <IonHeader>
             <IonToolbar>
-              <IonTitle>Login</IonTitle>
+              <IonTitle>Authentication</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -71,12 +96,26 @@ export const LoginPage: React.FC = () => {
               />
             </p>
             <IonItem>
-              <IonLabel position="fixed">Username</IonLabel>
+              {isSignUp && (
+                <>
+                  <IonLabel position="fixed">Display Name</IonLabel>
+                  <IonInput
+                    placeholder="Your Display Name"
+                    type="text"
+                    value={username}
+                    onIonChange={(e) => setUsername(e.detail.value!)}
+                  ></IonInput>
+                </>
+              )}
+            </IonItem>
+            -
+            <IonItem>
+              <IonLabel position="fixed">Email</IonLabel>
               <IonInput
-                placeholder="Your username"
+                placeholder="Your Email"
                 type="text"
-                value={username}
-                onIonChange={(e) => setUsername(e.detail.value!)}
+                value={email}
+                onIonChange={(e) => setUserEmail(e.detail.value!)}
               ></IonInput>
             </IonItem>
             <IonItem>
@@ -89,8 +128,12 @@ export const LoginPage: React.FC = () => {
               ></IonInput>
             </IonItem>
             <div className="button-group" id="button-group">
-              <IonButton expand="block" id="button-login" onClick={handleLogin}>
-                Login
+              <IonButton
+                expand="block"
+                id="button-login"
+                onClick={isSignUp ? handleSignUp : handleLogin}
+              >
+                {isSignUp ? "Sign Up" : "Login"}
               </IonButton>
               <IonButton
                 expand="block"
@@ -100,18 +143,21 @@ export const LoginPage: React.FC = () => {
                 Forgot Password
               </IonButton>
             </div>
-
             <IonButton expand="block" color="danger" className="google-button">
               Login with Google
             </IonButton>
-
             <h1 className="subtitle">Dear user</h1>
             <p className="description">
               Create an account to start using the app. With an account, you can
               easily browse and borrow items from other users in your community.
             </p>
-            <IonButton expand="block" color="ffffff" className="sign-up-button">
-              Sign Up
+            <IonButton
+              expand="block"
+              color="ffffff"
+              className="sign-up-button"
+              onClick={toggleFormMode}
+            >
+              {isSignUp ? "Switch to Login" : "Switch to Sign Up"}
             </IonButton>
           </IonContent>
         </IonPage>
