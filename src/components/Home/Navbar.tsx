@@ -14,10 +14,23 @@ import {
 } from "@ionic/react";
 import { enterOutline } from "ionicons/icons";
 import "./Navbar.css";
+import { logoutUser } from "../../firebase/auth";
 
 import LendOut from "./LendOut";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 const Navbar: React.FC = () => {
+
+  const handleLogout = async () => {
+    try {
+      const res = await logoutUser();
+      //if login success then show success toast
+      if (res) {
+        console.log("logout success");
+      }
+    } catch (error) {
+      console.log("logout failed");
+    }
+  };
   return (
     <>
       <IonPage id="main-content">
@@ -38,7 +51,7 @@ const Navbar: React.FC = () => {
               }></IonImg>
             </IonTitle>
             <IonButtons collapse={true} slot="end">
-              <IonButton disabled={true}>Logout</IonButton>
+              <IonButton onClick={handleLogout } >Logout</IonButton>
             </IonButtons>
           </IonToolbar>
         </IonHeader>
