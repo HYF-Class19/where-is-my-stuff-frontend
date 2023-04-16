@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "typeRoots": ["./node_modules/@types", "./src/types"]
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
