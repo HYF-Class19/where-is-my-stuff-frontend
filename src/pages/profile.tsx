@@ -1,5 +1,5 @@
 import React from "react";
-import { IonAvatar, IonCard, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonNav, IonPage, IonSpinner, IonTitle, IonToolbar } from "@ionic/react";
+import { IonAvatar, IonCard, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, albumsOutline, atSharp, chatbox } from "ionicons/icons";
 import "./styles/Profile.css";
 import { logoutUser } from "../authentication/auth";

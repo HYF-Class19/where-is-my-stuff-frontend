@@ -26,7 +26,7 @@ import { User } from "firebase/auth";
 import { dbRef, auth } from "../../database/db";
 
 function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string, email: string) {
-  const sanitizedEmail = email.replace(/[\[\].#$]/g, '-');
+  const sanitizedEmail = email.replace(/[\\[\].#$]/g, '-');
   const emailInfo = sanitizedEmail.split('@gmailcom');
   const itemsRef = child(dbRef, `users/${emailInfo}/items`);
   const newItemRef = push(itemsRef);

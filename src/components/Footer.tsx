@@ -1,5 +1,5 @@
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
-import { homeOutline, notificationsOutline, enterOutline, exitOutline, atOutline, personOutline } from 'ionicons/icons';
+import { homeOutline, notificationsOutline, enterOutline, exitOutline, personOutline } from 'ionicons/icons';
 import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 

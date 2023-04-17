@@ -17,17 +17,5 @@
     "jsx": "react-jsx"
   },
 
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.json"
-  ],
-  "exclude": ["node_modules"],
-  "typeAcquisition": {
-    "enable": true,
-    "include": ["next", "next-server", "styled-jsx"]
-  }
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

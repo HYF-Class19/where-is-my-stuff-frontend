@@ -18,7 +18,7 @@ export const Lend: React.FC = () => {
 
   useEffect(() => {
     if (userId) {
-      const sanitizedEmail = currentUser?.email?.replace(/[\[\].#$]/g, '-');
+      const sanitizedEmail = currentUser?.email?.replace(/[\\[\].#$]/g, '-');
       const emailInfo = sanitizedEmail?.split('@gmailcom');
       const itemsRef = child(dbRef, `users/${emailInfo}/items/`);
       onValue(itemsRef, (snapshot) => {

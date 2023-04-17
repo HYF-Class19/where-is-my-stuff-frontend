@@ -30,7 +30,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
   const currentUser = auth.currentUser;
   const userId = currentUser?.uid;
 
-  const emailInfo = currentUser?.email?.replace(/[\[\].#$]/g, '-').split('@gmailcom');
+  const emailInfo = currentUser?.email?.replace(/[\\[\].#$]/g, '-').split('@gmailcom');
 
 
 
