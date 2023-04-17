@@ -6,7 +6,6 @@ import {
   IonHeader,
   IonIcon,
   IonImg,
-  IonMenuButton,
   IonPage,
   IonTabButton,
   IonTitle,
@@ -37,7 +36,6 @@ const Navbar: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonMenuButton></IonMenuButton>
             </IonButtons>
             <IonTitle>
               <IonImg src="./assets/logo1.png" style={
@@ -51,7 +49,7 @@ const Navbar: React.FC = () => {
               }></IonImg>
             </IonTitle>
             <IonButtons collapse={true} slot="end">
-              <IonButton onClick={handleLogout } >Logout</IonButton>
+              <IonButton onClick={handleLogout} >Logout</IonButton>
             </IonButtons>
           </IonToolbar>
         </IonHeader>
@@ -59,9 +57,9 @@ const Navbar: React.FC = () => {
           <LendOut />
         </IonContent>
         <IonContent className="btn-home">
-          <IonTabButton tab="radio" href="/radio">
+          <IonTabButton tab="radio" href="/borrow">
             <IonIcon icon={enterOutline} className="ion-icon-borrow" />
-            <IonButton disabled className="ion-button-borrow">Borrowed</IonButton>
+            <IonButton  href="/borrow">Borrowed</IonButton>
           </IonTabButton>
         </IonContent>
       </IonPage>

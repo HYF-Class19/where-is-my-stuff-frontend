@@ -19,8 +19,11 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
 
     useEffect(() => {
         if (currentUser) {
+            const sanitizedEmail = currentUser.email?.replace(/[\\[\].#$]/g, '-');
+            const emailInfo = sanitizedEmail?.split('@gmailcom');
             const userId = currentUser.uid;
-            const userRemindersRef = child(dbRef, `users/${userId}/items`);
+            const userRemindersRef = child(dbRef, `users/${emailInfo}/items`);
+            
             onValue(userRemindersRef, (snapshot) => {
                 if (snapshot.exists()) {
                     const newReminders: Reminder[] = [];

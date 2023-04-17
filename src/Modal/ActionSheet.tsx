@@ -24,10 +24,15 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [messageDelete, setMessageDelete] = useState("");
     const [messageUpdate, setMessageUpdate] = useState("");
-    const userId = auth.currentUser?.uid;
+
+    const user = auth.currentUser;
+
+
 
     const handleDelete = () => {
-        const dbRemindersRef = child(dbRef, `users/${userId}/items/${selectedReminder.id}`);
+        const sanitizedEmail = user?.email?.replace(/[[\].#$]/g, '-') || '';
+        const emailInfo = sanitizedEmail.split('@gmailcom');
+        const dbRemindersRef = child(dbRef, `users/${emailInfo}/items/${selectedReminder.id}`);
         remove(dbRemindersRef).then(() => {
             setTimeout(() => {
                 setMessageDelete("Item deleted successfully.");
@@ -38,24 +43,26 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
     };
 
     const handleUpdate = () => {
-        const dbRemindersRef = child(dbRef, `users/${userId}/items/${selectedReminder.id}`);
-       
+        const sanitizedEmail = user?.email?.replace(/[\\[\].#$]/g, '-') || '';
+        const emailInfo = sanitizedEmail.split('@gmailcom');
+        const dbRemindersRef = child(dbRef, `users/${emailInfo}/items/${selectedReminder.id}`);
+
         const updates = {
-          name: selectedReminder.itemName,
-          description: selectedReminder.description,
-          borrowerName: selectedReminder.borrowerName,
-          lendingDate: selectedReminder.lendingDate,
-          reminderDate: selectedReminder.reminderDate,
+            name: selectedReminder.itemName,
+            description: selectedReminder.description,
+            borrowerName: selectedReminder.borrowerName,
+            lendingDate: selectedReminder.lendingDate,
+            reminderDate: selectedReminder.reminderDate,
         };
-      
+
         update(dbRemindersRef, updates)
-          .then(() => {
-            setMessageUpdate("Item updated successfully.");
-          })
-          .catch((error) => {
-            console.error("Error updating item:", error);
-          });
-      };
+            .then(() => {
+                setMessageUpdate("Item updated successfully.");
+            })
+            .catch((error) => {
+                console.error("Error updating item:", error);
+            });
+    };
 
     return (
         <>

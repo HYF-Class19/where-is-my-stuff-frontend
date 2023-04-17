@@ -18,7 +18,9 @@ export const Lend: React.FC = () => {
 
   useEffect(() => {
     if (userId) {
-      const itemsRef = child(dbRef, `users/${userId}/items`);
+      const sanitizedEmail = currentUser?.email?.replace(/[\\[\].#$]/g, '-');
+      const emailInfo = sanitizedEmail?.split('@gmailcom');
+      const itemsRef = child(dbRef, `users/${emailInfo}/items/`);
       onValue(itemsRef, (snapshot) => {
         const data = snapshot.val();
         const newItems: { id: string; name: string }[] = [];
@@ -34,9 +36,7 @@ export const Lend: React.FC = () => {
         setItems(newItems);
       });
     }
-  }, [
-    userId
-  ]);
+  }, [currentUser?.email, userId]);
 
   return (
     <IonPage>
