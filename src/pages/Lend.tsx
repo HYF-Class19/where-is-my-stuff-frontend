@@ -36,9 +36,7 @@ export const Lend: React.FC = () => {
         setItems(newItems);
       });
     }
-  }, [
-    userId
-  ]);
+  }, [currentUser?.email, userId]);
 
   return (
     <IonPage>

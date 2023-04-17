@@ -76,7 +76,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
         );
       });
     }
-  }, [userId]);
+  }, [emailInfo, userId]);
 
   const closeModal = () => setIsOpen(false);
 
