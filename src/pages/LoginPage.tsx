@@ -19,6 +19,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, dbRef } from "../database/db";
 import { child, set } from "firebase/database";
 
+
 import 'spin.js/spin.css';
 import { IonSpinner } from "@ionic/react";
 
@@ -31,20 +32,26 @@ export const LoginPage: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-
   const { user, loading } = useAuth();
-
 
 
   const handleGoogleLogin = async () => {
     try {
       const res = await loginWithGoogle();
-
-      //if login success then show success toast
       if (res) {
         setError("Please enter your username and password");
-        setShowError(false);
         setShowSuccess(true);
+        setShowError(false);
+
+        const user = auth.currentUser;
+        if (user) {
+          const userRef = child(dbRef, "users/" + user.uid);
+          set(userRef, {
+            username: username,
+            email: email,
+            uid: user.uid,
+          });
+        }
 
       }
     } catch (error) {
@@ -61,6 +68,15 @@ export const LoginPage: React.FC = () => {
         setError("Please enter your username and password");
         setShowSuccess(true);
         setShowError(false);
+        const user = auth.currentUser;
+        if (user) {
+          const userRef = child(dbRef, "users/" + user.uid);
+          set(userRef, {
+            username: username,
+            email: email,
+            uid: user.uid,
+          });
+        }
       }
     } catch (error) {
       setError("Invalid username or password");
@@ -88,9 +104,6 @@ export const LoginPage: React.FC = () => {
           });
         }
       }
-
-
-
     } catch (error) {
       setShowSuccess(false);
       setShowError(true);
@@ -112,13 +125,10 @@ export const LoginPage: React.FC = () => {
     );
   }
 
-
-
   if (user) {
-    return <Footer />;
+    return <Footer page1="/profile" />;
+
   }
-
-
 
   return (
     <>
@@ -170,7 +180,6 @@ export const LoginPage: React.FC = () => {
               <IonButton
                 expand="block"
                 id="button-login"
-                // load
                 onClick={isSignUp ? handleSignUp : handleLogin}
               >
                 {isSignUp ? "Sign Up" : "Login"}
