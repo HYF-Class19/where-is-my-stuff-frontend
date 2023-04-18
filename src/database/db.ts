@@ -1,7 +1,8 @@
 
 import { initializeApp } from 'firebase/app';
-import { getAuth} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getDatabase, ref } from "firebase/database";
+import { getMessaging, getToken } from "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD-rQFOxv52LCGmt4yoxA-bU0obnsEUBFE",
@@ -18,14 +19,12 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 const db = getDatabase(app);
 export const dbRef = ref(db);
+export const messaging = getMessaging(app);
 
-
-
-
-
-
-
-
+export const getMessagingToken = async () => {
+    const token = await getToken(messaging);
+    return token;
+}
 
 
 

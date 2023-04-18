@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
+import { child, onValue } from 'firebase/database';
+import { dbRef } from '../database/db';
+
 import { IonIcon, IonItem, IonItemDivider, IonLabel, IonList } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
-
-import { getAuth } from 'firebase/auth';
-import { dbRef } from '../database/db';
-import { child, onValue } from 'firebase/database';
-
 import { Reminder, useReminder } from "../hooks/UseReminder";
 import { ReminderDetailsModal } from '../Modal/Details';
+
 
 interface ReminderProps { }
 
@@ -23,7 +23,7 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
             const emailInfo = sanitizedEmail?.split('@gmailcom');
             const userId = currentUser.uid;
             const userRemindersRef = child(dbRef, `users/${emailInfo}/items`);
-            
+
             onValue(userRemindersRef, (snapshot) => {
                 if (snapshot.exists()) {
                     const newReminders: Reminder[] = [];
@@ -49,8 +49,51 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
         }
     }, [currentUser]);
 
+    useEffect(() => {
+        const handleNotificationClick = () => {
+            // Handle notification click event here
+            console.log('Notification clicked');
+        };
+
+        const showNotification = (title: string, options?: NotificationOptions) => {
+            if (Notification.permission === 'granted') {
+                const notification = new Notification(title, options);
+                notification.addEventListener('click', handleNotificationClick);
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        const notification = new Notification(title, options);
+                        notification.addEventListener('click', handleNotificationClick);
+                    }
+                });
+            }
+        };
+
+        const intervalId = setInterval(() => {
+            reminders.forEach((reminder) => {
+                const today = new Date();
+                const reminderDate = reminder.reminderDate ? new Date(reminder.reminderDate) : undefined;
+                if (reminderDate && reminderDate.getDate() === today.getDate() && reminderDate.getMonth() === today.getMonth() && reminderDate.getFullYear() === today.getFullYear()) {
+                    const title = 'Reminder';
+                    const body = `You have to return ${reminder.name} to ${reminder.borrowerName} today!`;
+                    const options: NotificationOptions = {
+                        body,
+                        icon: '/assets/icon/notification.png',
+                        vibrate: [200, 100, 200],
+                    };
+
+                    showNotification(title, options);
+                }
+            });
+        }, 10000); // check every 1 minute
+
+        return () => clearInterval(intervalId);
+    }, [reminders]);
+
+
     return (
         <div>
+
             <IonList className='reminder__list'>
                 {reminders.map((reminder) => (
                     <React.Fragment key={`fragment-${reminder.id}`}>
@@ -80,5 +123,3 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
         </div>
     );
 };
-
-
