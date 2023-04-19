@@ -136,11 +136,20 @@ export const LoginPage: React.FC = () => {
         <IonPage className="page-container">
           <IonHeader>
             <IonToolbar>
-              <IonTitle>login</IonTitle>
+              <IonImg src="./assets/logo1.png" className="login-logo"></IonImg>
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <IonImg src="./assets/logo1.png" className="login-logo"></IonImg>
+            <h1
+              style={
+                {
+                  color: "black",
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }
+              }
+            >login</h1>
             <p className="message">
               <IonLabel color="danger" hidden={!showError}>{error}</IonLabel>
               <IonLabel color="success" hidden={!showSuccess}>Login Success</IonLabel>
@@ -188,11 +197,12 @@ export const LoginPage: React.FC = () => {
                 expand="block"
                 color="ffffff"
                 className="forgot-button"
+                disabled
               >
                 Forgot Password
               </IonButton>
             </div>
-            <IonButton expand="block" color="danger" className="google-button" onClick={handleGoogleLogin}>
+            <IonButton expand="block" color="danger" className="google-button" disabled onClick={handleGoogleLogin}>
               Login with Google
             </IonButton>
             <h1 className="subtitle">Dear user</h1>
