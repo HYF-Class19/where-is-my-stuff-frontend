@@ -30,8 +30,8 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
 
 
     const handleDelete = () => {
-        const sanitizedEmail = user?.email?.replace(/[[\].#$]/g, '-') || '';
-        const emailInfo = sanitizedEmail.split('@gmailcom');
+        const sanitizedEmail = user?.email?.replace(/[[\].#$]/g, '-');
+        const emailInfo = sanitizedEmail?.split('@gmailcom');
         const dbRemindersRef = child(dbRef, `users/${emailInfo}/items/${selectedReminder.id}`);
         remove(dbRemindersRef).then(() => {
             setTimeout(() => {
@@ -43,8 +43,8 @@ export const ActionSheetToDeleteAndUpdate = ({ isAction, action, onDismiss, onAc
     };
 
     const handleUpdate = () => {
-        const sanitizedEmail = user?.email?.replace(/[\\[\].#$]/g, '-') || '';
-        const emailInfo = sanitizedEmail.split('@gmailcom');
+        const sanitizedEmail = user?.email?.replace(/[\\[\].#$]/g, '-');
+        const emailInfo = sanitizedEmail?.split('@gmailcom');
         const dbRemindersRef = child(dbRef, `users/${emailInfo}/items/${selectedReminder.id}`);
 
         const updates = {

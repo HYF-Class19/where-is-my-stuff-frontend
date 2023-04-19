@@ -44,7 +44,7 @@ export const Profile: React.FC = () => {
                             <IonIcon slot="start" icon={homeOutline} />
                             <IonLabel>Home</IonLabel>
                         </IonItem>
-                        <IonItem disabled routerLink="/settings" routerDirection="none">
+                        <IonItem routerLink="/settings" routerDirection="none">
                             <IonIcon slot="start" icon={settingsOutline} />
                             <IonLabel>Settings</IonLabel>
                         </IonItem>
@@ -66,16 +66,8 @@ export const Profile: React.FC = () => {
                             <IonLabel>Feedback</IonLabel>
                         </IonItem>
                         <IonItem routerLink="/chat" routerDirection="none">
-                            <IonIcon slot="start" icon={chatbox}
-                                style={{
-                                    color: "blue"
-                                }}
-                            />
-                            <IonLabel
-                                style={{
-                                    color: "blue"
-                                }}
-                            >Chat</IonLabel>
+                            <IonIcon slot="start" icon={chatbox} />
+                            <IonLabel>Chat</IonLabel>
                         </IonItem>
                         <IonMenuToggle>
                             <IonItem routerLink="/login" routerDirection="none">
@@ -104,8 +96,6 @@ export const Profile: React.FC = () => {
                             <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"
                             />
                         </IonAvatar>
-
-
                     </div>
                     <IonCard style={{
                         display: "grid",

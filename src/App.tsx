@@ -25,15 +25,12 @@ import { LoginPage } from './pages/LoginPage';
 
 setupIonicReact();
 
-
-
 const App: React.FC = () => {
   return (
-    <div >
-      <IonApp className='app-container'>
-        <LoginPage />
-      </IonApp>
-    </div>
+    <IonApp className='app-container' >
+      <LoginPage />
+    </IonApp>
+
   );
 }
 

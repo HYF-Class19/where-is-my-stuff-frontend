@@ -1,10 +1,15 @@
 
 .page-container {
-    max-width: 800px; /* adjust this value as needed */
-    max-height: 1100px;
+    max-width: 800px;
+    max-height: 1000px;
     margin: 0 auto;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 5px;
+    border: 0.5px solid rgba(223, 213, 213, 0.521);
     border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 1px 20px 20px 2px rgba(204, 233, 235, 0.212);
+
 }
 
 ion-title{
@@ -13,8 +18,7 @@ ion-title{
 
 ion-img{
     width: 100px;
-    height: 44px;
-    background-color: #ffffff;
+    height: 36px;
     margin: 2px;
     margin-left: auto;
     margin-right: auto;

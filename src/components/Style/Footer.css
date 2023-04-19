@@ -1,3 +1,11 @@
-/* .borrow__item{
-    color: rgb(203, 200, 194);
-} */
+.footer-ion-tab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .footer-ion-tab {
+      flex-direction: column;
+    }
+  }
