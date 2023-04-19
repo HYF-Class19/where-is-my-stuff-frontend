@@ -7,7 +7,6 @@ import {
   IonItem,
   IonLabel,
   IonPage,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import "./styles/Login.css";
