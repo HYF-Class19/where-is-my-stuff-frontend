@@ -1,4 +1,6 @@
 
 .my-divider {
-  --background: #E6E6E6; /* Replace with your desired background color */
+  --background: #ffffff; /* Replace with your desired background color */
+  /* color */
+  --color: #333333; /* Replace with your desired color */
 }

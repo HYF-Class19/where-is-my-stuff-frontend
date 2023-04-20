@@ -34,7 +34,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
 
 
 
- 
+
 
   const handleClick = async (item: { id: string, name: string }) => {
     const itemDetailsRef = child(dbRef, `users/${emailInfo}/items/${item.id}`);
@@ -71,12 +71,12 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
               }
               return result;
             },
-            []
+            [{ letter: '', items: [] }]
           )
         );
       });
     }
-  }, [emailInfo, userId]);
+  },[items]);
 
   const closeModal = () => setIsOpen(false);
 
@@ -106,7 +106,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
           {items.map((item) => (
             <IonItem key={item.id} onClick={() => handleClick(item)}>
               <IonLabel>{item.name}</IonLabel>
-              <IonIcon slot="end" icon={chevronForwardOutline} />             
+              <IonIcon slot="end" icon={chevronForwardOutline} />
             </IonItem>
           ))}
         </React.Fragment>

@@ -1,6 +1,7 @@
 
 import Navbar from "../components/Home/Navbar";
 import "./styles/Home.css";
+import { withDarkMode } from "../context/WithDarkMode";
 
 export const Home: React.FC = () => {
   return (
@@ -10,4 +11,4 @@ export const Home: React.FC = () => {
     </>
   );
 };
-export default Home;
+export default withDarkMode(Home);

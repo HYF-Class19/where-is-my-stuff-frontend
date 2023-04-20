@@ -6,10 +6,6 @@ import { logoutUser } from "../authentication/auth";
 import { auth } from "../database/db";
 
 
-
-
-
-
 export const Profile: React.FC = () => {
 
     const currentUser = auth.currentUser;

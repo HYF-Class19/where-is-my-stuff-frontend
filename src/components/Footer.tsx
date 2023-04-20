@@ -11,6 +11,8 @@ import { Reminder } from '../pages/Reminder';
 import { Borrow } from '../pages/Borrow';
 import About from '../services/About';
 import { Settings } from '../services/Settings';
+import { LendingHistory } from '../services/LendingHistory';
+import { Chat } from '../services/Chat';
 
 interface FooterProps {
   page1: string;
@@ -47,6 +49,12 @@ const Footer: React.FC<FooterProps> = () => {
           </Route>
           <Route exact path="/settings">
             <Settings />
+          </Route>
+          <Route exact path="/history">
+            <LendingHistory />
+          </Route>
+          <Route exact path="/chat">
+            <Chat />
           </Route>
 
         </IonReactRouter>
