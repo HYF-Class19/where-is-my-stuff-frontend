@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IonPage, IonInput, IonButton, IonText, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons } from "@ionic/react";
+import { IonPage, IonInput, IonButton, IonText, IonHeader, IonTitle, IonContent, IonToolbar, IonBackButton, IonButtons, IonCard } from "@ionic/react";
 
 
 export const Chat: React.FC = () => {
@@ -71,6 +71,7 @@ export const Chat: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent >
+                    <IonCard>
                     <IonInput style={{
                         marginTop: "30px",
                         marginLeft: "20px",
@@ -105,6 +106,8 @@ export const Chat: React.FC = () => {
                         value={message}
                         onIonChange={(e) => setMessage(e.detail.value!)}
                     />
+                    </IonCard>
+                 
                     <IonButton
                         expand="block"
                         onClick={handleSendSMS}
