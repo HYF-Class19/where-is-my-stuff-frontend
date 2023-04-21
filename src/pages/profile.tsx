@@ -15,7 +15,7 @@ export const Profile: React.FC = () => {
             const res = await logoutUser();
             //if login success then show success toast
             if (res) {
-                alert('You have been logged out')
+                console.log("logout success");
             }
         } catch (error) {
             console.log("logout failed");
@@ -68,7 +68,7 @@ export const Profile: React.FC = () => {
                         </IonItem>
 
                         <IonMenuToggle>
-                            <IonItem routerLink="/login" routerDirection="none">
+                            <IonItem routerLink="/" routerDirection="none">
                                 <IonIcon slot="start" icon={logOut}
                                     style={{
                                         color: "red"

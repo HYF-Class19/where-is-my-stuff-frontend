@@ -4,6 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 import './Style/Footer.css'
 
+
+
 import { Profile } from '../pages/profile';
 import { Home } from '../pages/Home';
 import { Lend } from '../pages/Lend';
@@ -18,11 +20,8 @@ import { MyStore } from '../services/MyStore';
 import { MyChat } from '../services/MyChat';
 
 
-interface FooterProps {
-  page1: string;
-}
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC = () => {
 
   return (
     <IonTabs className='footer-ion-tab'>

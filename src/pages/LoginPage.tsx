@@ -19,6 +19,7 @@ import { auth, dbRef } from "../database/realTimeDatabase";
 import { child, set } from "firebase/database";
 
 
+
 import 'spin.js/spin.css';
 import { IonSpinner } from "@ionic/react";
 
@@ -32,6 +33,9 @@ export const LoginPage: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const { user, loading } = useAuth();
+
+
+
 
 
   const handleGoogleLogin = async () => {
@@ -124,8 +128,12 @@ export const LoginPage: React.FC = () => {
     );
   }
 
+  // user
+
+
+
   if (user) {
-    return <Footer page1="/profile" />;
+    return <Footer />;
 
   }
 

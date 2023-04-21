@@ -14,6 +14,7 @@ interface ReminderProps { }
 export const RemindersItem: React.FC<ReminderProps> = () => {
     const { selectedReminder, isModalOpen, handleModalDismiss, handleItemClick } = useReminder();
     const [reminders, setReminders] = useState<Reminder[]>([]);
+    const [noReminders, setNoReminders] = useState<boolean>(false);
     const auth = getAuth();
     const currentUser = auth.currentUser;
 
@@ -21,7 +22,7 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
         if (currentUser) {
             const sanitizedEmail = currentUser.email?.replace(/[\\[\].#$]/g, '-');
             const emailInfo = sanitizedEmail?.split('@gmailcom');
-            const userId = currentUser.uid;
+            // const userId = currentUser.uid;
             const userRemindersRef = child(dbRef, `users/${emailInfo}/items`);
 
             onValue(userRemindersRef, (snapshot) => {
@@ -41,7 +42,8 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
                     });
                     setReminders(newReminders);
                 } else {
-                    console.log(`No reminders found for user ${userId}`);
+                    // console.log(`No reminders found for user ${userId}`);
+                    setNoReminders(true);
                 }
             }, (error) => {
                 console.error(error);
@@ -93,6 +95,7 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
 
     return (
         <div>
+            {noReminders && <p>No reminders found</p>}
 
             <IonList className='reminder__list'>
                 {reminders.map((reminder) => (
