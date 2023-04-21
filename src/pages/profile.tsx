@@ -1,13 +1,12 @@
 import React from "react";
-import { IonAvatar, IonCard, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, albumsOutline, atSharp, chatbox } from "ionicons/icons";
+import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, albumsOutline, atSharp, chatbox, idCardSharp, personAddOutline, atCircleOutline, textSharp, callSharp, location, storefrontSharp, addCircle } from "ionicons/icons";
 import "./styles/Profile.css";
 import { logoutUser } from "../authentication/auth";
-import { auth } from "../database/db";
+import { auth } from "../database/realTimeDatabase";
 
 
 export const Profile: React.FC = () => {
-
     const currentUser = auth.currentUser;
 
     const handleSignOut = async () => {
@@ -17,20 +16,22 @@ export const Profile: React.FC = () => {
             //if login success then show success toast
             if (res) {
                 alert('You have been logged out')
-
             }
         } catch (error) {
             console.log("logout failed");
         }
     }
 
-
-
     return (
         <>
             <IonMenu side="start" contentId="profile-menu">
                 <IonHeader>
                     <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonBackButton
+                                defaultHref="/"
+                            ></IonBackButton>
+                        </IonButtons>
                         <IonTitle>Menu</IonTitle>
                     </IonToolbar>
                 </IonHeader>
@@ -65,6 +66,7 @@ export const Profile: React.FC = () => {
                             <IonIcon slot="start" icon={chatbox} />
                             <IonLabel>Chat</IonLabel>
                         </IonItem>
+
                         <IonMenuToggle>
                             <IonItem routerLink="/login" routerDirection="none">
                                 <IonIcon slot="start" icon={logOut}
@@ -87,24 +89,40 @@ export const Profile: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <div className="profile-container">
-                        <IonAvatar>
-                            <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                            />
-                        </IonAvatar>
-                    </div>
-                    <IonCard style={{
-                        display: "grid",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: "20px"
-                    }}>
-                        <IonItem><IonLabel>User ID:</IonLabel></IonItem>
-                        <IonItem> <p>{currentUser?.uid}</p></IonItem>
-                        <IonItem><IonLabel>Email:</IonLabel></IonItem>
-                        <IonItem><p>{currentUser?.email}</p></IonItem>
+                    <IonItem >
+                        <IonIcon slot="start" icon={personAddOutline}></IonIcon>
+                        <IonLabel>Me</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonIcon slot="start" icon={idCardSharp}></IonIcon>
+                        <IonLabel>ID: {currentUser?.uid}</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonIcon slot="start" icon={atCircleOutline}></IonIcon>
+                        <IonLabel>Email:{currentUser?.email}</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonIcon slot="start" icon={textSharp}></IonIcon>
+                        <IonLabel>userName:</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonIcon slot="start" icon={callSharp}></IonIcon>
+                        <IonLabel>Phone:</IonLabel>
+                    </IonItem>
+                    <IonItem>
+                        <IonIcon slot="start" icon={location}></IonIcon>
+                        <IonLabel>Address:</IonLabel>
+                    </IonItem>
+                    <IonCard>
 
+                        <IonItem routerLink="/add" routerDirection="none">
+                            <IonIcon slot="start" icon={addCircle} />
+                            <IonLabel>Add To be borrow it</IonLabel>
+                        </IonItem>
+                        <IonItem routerLink="/myStore" routerDirection="none">
+                            <IonIcon slot="start" icon={storefrontSharp}></IonIcon>
+                            <IonLabel>My store</IonLabel>
+                        </IonItem>
                     </IonCard>
                 </IonContent>
             </IonPage>

@@ -13,6 +13,9 @@ import About from '../services/About';
 import { Settings } from '../services/Settings';
 import { LendingHistory } from '../services/LendingHistory';
 import { Chat } from '../services/Chat';
+import { AddToBeBorrow } from '../services/AddToBeBorrow';
+import { MyStore } from '../services/MyStore';
+
 
 interface FooterProps {
   page1: string;
@@ -38,7 +41,7 @@ const Footer: React.FC<FooterProps> = () => {
             <Lend />
           </Route>
           <Route exact path="/borrow">
-            <Borrow borrowerName={''} borrowDate={''} returnDate={''} />
+            <Borrow />
           </Route>
           <Route exact path="/reminder">
             <Reminder />
@@ -55,6 +58,12 @@ const Footer: React.FC<FooterProps> = () => {
           </Route>
           <Route exact path="/chat">
             <Chat />
+          </Route>
+          <Route exact path="/add">
+            <AddToBeBorrow />
+          </Route>
+          <Route exact path="/mystore">
+            <MyStore />
           </Route>
 
         </IonReactRouter>

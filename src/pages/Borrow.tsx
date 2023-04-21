@@ -1,123 +1,94 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import {
     IonPage,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
+    IonButtons,
+    IonBackButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
     IonItem,
-    IonLabel,
-    IonInput,
-    IonButton,
-    IonDatetime,
-    IonAlert,
-    IonDatetimeButton,
-    IonModal
+    IonList
 } from '@ionic/react';
 
-interface BorrowProps {
-    borrowerName: string;
-    borrowDate: string;
-    returnDate: string;
+import { useState, useEffect } from "react";
+import { getFirestore, collectionGroup, getDocs } from "firebase/firestore";
 
+interface Item {
+    itemId: string;
+    imageUrl: string;
+    name: string;
+    description: string;
 }
 
+export const Borrow: React.FC = () => {
+    const [items, setItems] = useState<Item[]>([]);
+    const [expanded, setExpanded] = useState(false);
 
+    useEffect(() => {
+        const db = getFirestore();
+        const getItems = async () => {
+            const itemSnapshot = await getDocs(collectionGroup(db, "items"));
+            const itemData = itemSnapshot.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    itemId: data.itemId,
+                    imageUrl: data.imageUrl,
+                    name: data.name,
+                    description: data.description,
+                };
+            });
+            setItems(itemData);
+        };
+        getItems();
 
-export const Borrow: React.FC<BorrowProps> = () => {
+    }, []);
 
-    const [itemName, setItemName] = useState('');
-    const [itemDescription, setItemDescription] = useState('');
-    const [borrowerName, setBorrowerName] = useState('');
-    const [borrowDate, setBorrowDate] = useState<string | string[]>('');
-    const [returnDate, setReturnDate] = useState<string | string[]>('');
-    const [showAlert, setShowAlert] = useState(false);
-
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setShowAlert(true);
-    };
+    const handleCardClick = () => {
+        setExpanded(!expanded);
+    }
 
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Borrow items</IonTitle>
+                    <IonButtons>
+                        <IonBackButton defaultHref="/profile" />
+                    </IonButtons>
+                    <IonTitle>Market place</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen>
-                <form onSubmit={handleFormSubmit}>
-                    <IonItem>
-                        <IonLabel position="stacked">Item name</IonLabel>
-                        <IonInput
-                            type="text"
-                            value={itemName}
-                            onIonChange={e => setItemName(e.detail.value!)}
-                            required
-                        />
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Item description</IonLabel>
-                        <IonInput
-                            type="text"
-                            value={itemDescription}
-                            onIonChange={e => setItemDescription(e.detail.value!)}
-                            required
-                        />
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Borrower name</IonLabel>
-                        <IonInput
-                            type="text"
-                            value={borrowerName}
-                            onIonChange={e => setBorrowerName(e.detail.value!)}
-                            required
-                        />
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Borrow date</IonLabel>
-                        <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
-                        <IonModal keepContentsMounted={true}>
-                            <IonDatetime id="reminderTime"
-                                value={borrowDate}
-                                onIonChange={e => setBorrowDate(e.detail.value!)}
-                            />
-                        </IonModal>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel position="stacked">Return date</IonLabel>
-                        <IonDatetimeButton datetime="reminderTime"></IonDatetimeButton>
-                        <IonModal keepContentsMounted={true}>
-                            <IonDatetime id='reminderTime'
-                                value={returnDate}
-                                onIonChange={e => setReturnDate(e.detail.value!)}
-                            />
-                        </IonModal>
-                    </IonItem>
-
-                    <IonButton type="submit" expand="block"
-                        style={{
-                            fontWeight: 'bold',
-                            fontSize: '20px',
-                            marginTop: '20px',
-                            maxWidth: '90%',
-                            marginLeft: 'auto',
-                            marginRight: 'auto',
-                        }}
-                    >
-                        Borrow
-                    </IonButton>
-                </form>
-                <IonAlert
-                    isOpen={showAlert}
-                    onDidDismiss={() => setShowAlert(false)}
-                    header={'Success!'}
-                    message={`You have successfully borrowed an item from ${borrowerName}.`}
-                    buttons={['OK']}
-                />
-
+            <IonContent>
+                <IonList>
+                    {items.map(item => (
+                        <IonItem key={item.itemId} onClick={handleCardClick}>
+                            <IonCard style={{
+                                maxWidth: "90%",
+                                maxHeight: "100%",
+                                margin: "auto",
+                            }}>
+                                <img alt="Item Image" src={item.imageUrl} />
+                                <IonCardHeader>
+                                    <IonCardTitle>{item.name}</IonCardTitle>
+                                </IonCardHeader>
+                                {expanded && (
+                                    <IonCardContent>
+                                        {item.description}
+                                        {/* chat box */}
+                                        
+                                    </IonCardContent>
+                                )}
+                            </IonCard>
+                        </IonItem>
+                    ))}
+                </IonList>
             </IonContent>
-
         </IonPage>
     );
 };
+
+

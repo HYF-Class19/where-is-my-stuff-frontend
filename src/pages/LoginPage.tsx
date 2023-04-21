@@ -15,7 +15,7 @@ import Footer from "../components/Footer";
 import { loginWithGoogle, registerUser } from "../authentication/auth";
 import useAuth from "../hooks/useAuth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, dbRef } from "../database/db";
+import { auth, dbRef } from "../database/realTimeDatabase";
 import { child, set } from "firebase/database";
 
 

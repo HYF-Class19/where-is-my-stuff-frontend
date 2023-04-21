@@ -1,4 +1,4 @@
-import { dbRef } from "../database/db";
+import { dbRef } from "../database/realTimeDatabase";
 import React, { useState, useEffect } from 'react';
 import { IonList, IonItem, IonLabel, IonItemDivider, IonIcon } from '@ionic/react';
 import { chevronForwardOutline } from 'ionicons/icons';
@@ -72,7 +72,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
       });
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const closeModal = () => setIsOpen(false);

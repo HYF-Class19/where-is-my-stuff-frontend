@@ -2,7 +2,7 @@ import { IonActionSheet, IonAlert, IonButton, IonButtons, IonContent, IonDatetim
 import { UseAlertAction } from "../hooks/UseAlert";
 import { useState } from "react";
 import { child, remove, update } from "firebase/database";
-import { dbRef, auth } from "../database/db";
+import { dbRef, auth } from "../database/realTimeDatabase";
 
 
 
