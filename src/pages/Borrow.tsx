@@ -12,22 +12,48 @@ import {
     IonCardHeader,
     IonCardTitle,
     IonItem,
-    IonList
+    IonList,
+    IonButton,
+    IonInput
 } from '@ionic/react';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Key } from "react";
 import { getFirestore, collectionGroup, getDocs } from "firebase/firestore";
+import { getDatabase, ref, push, onValue } from "firebase/database";
+
+import '../services/styles/chat.css'
 
 interface Item {
     itemId: string;
     imageUrl: string;
     name: string;
     description: string;
+
 }
+
+interface ChatMessage {
+    id: Key | null | undefined;
+    sender: string;
+    message: string;
+}
+
 
 export const Borrow: React.FC = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [expanded, setExpanded] = useState(false);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [message, setMessage] = useState("");
+
+    const sendMessage = () => {
+        const db = getDatabase();
+        const chatRef = ref(db, `chats/${items[0].itemId}`);
+        push(chatRef, {
+            message,
+        });
+        setMessage("");
+    };
+
+
 
     useEffect(() => {
         const db = getFirestore();
@@ -48,9 +74,26 @@ export const Borrow: React.FC = () => {
 
     }, []);
 
-    const handleCardClick = () => {
+
+    const handleCardClick = (itemId: string) => {
         setExpanded(!expanded);
+        setMessages([]);
+
+        const db = getDatabase();
+        const chatRef = ref(db, `chats/${itemId}`);
+
+        onValue(chatRef, (snapshot) => {
+            const messages: any[] | ((prevState: string[]) => string[]) = [];
+            snapshot.forEach((child) => {
+                messages.push({
+                    id: child.key,
+                    ...child.val(),
+                });
+            });
+            setMessages(messages);
+        });
     }
+
 
     return (
         <IonPage>
@@ -65,7 +108,9 @@ export const Borrow: React.FC = () => {
             <IonContent>
                 <IonList>
                     {items.map(item => (
-                        <IonItem key={item.itemId} onClick={handleCardClick}>
+                        <IonItem key={item.itemId}
+                            onClick={() => handleCardClick(item.itemId)}
+                        >
                             <IonCard style={{
                                 maxWidth: "90%",
                                 maxHeight: "100%",
@@ -76,12 +121,38 @@ export const Borrow: React.FC = () => {
                                     <IonCardTitle>{item.name}</IonCardTitle>
                                 </IonCardHeader>
                                 {expanded && (
-                                    <IonCardContent>
-                                        {item.description}
-                                        {/* chat box */}
-                                        
-                                    </IonCardContent>
+                                    <>
+                                        <IonCardContent>
+                                            {item.description}
+
+                                        </IonCardContent>
+                                    </>
                                 )}
+
+                                <IonCard style={{
+                                    border: "2px",
+                                    borderColor: "black",
+                                    borderStyle: "solid",
+                                }}>
+
+                                    <IonItem>
+                                        {messages.map((msg) => (
+                                            <div key={msg.id}>
+                                                <span>me{msg.sender}:</span>
+                                                <span>{msg.message}</span>
+                                            </div>
+                                        ))}
+                                    </IonItem>
+
+                                    <IonInput
+                                        type="text"
+                                        value={message}
+                                        onIonChange={(e) => setMessage(e.detail.value!)}
+
+                                        placeholder="Type your message here..."
+                                    />
+                                    <IonButton onClick={sendMessage}>Send</IonButton>
+                                </IonCard>
                             </IonCard>
                         </IonItem>
                     ))}

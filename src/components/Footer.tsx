@@ -4,6 +4,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { IonReactRouter } from '@ionic/react-router';
 import './Style/Footer.css'
 
+
+
 import { Profile } from '../pages/profile';
 import { Home } from '../pages/Home';
 import { Lend } from '../pages/Lend';
@@ -12,16 +14,14 @@ import { Borrow } from '../pages/Borrow';
 import About from '../services/About';
 import { Settings } from '../services/Settings';
 import { LendingHistory } from '../services/LendingHistory';
-import { Chat } from '../services/Chat';
+import { Chat } from '../services/Sms';
 import { AddToBeBorrow } from '../services/AddToBeBorrow';
 import { MyStore } from '../services/MyStore';
+import { MyChat } from '../services/MyChat';
 
 
-interface FooterProps {
-  page1: string;
-}
 
-const Footer: React.FC<FooterProps> = () => {
+const Footer: React.FC = () => {
 
   return (
     <IonTabs className='footer-ion-tab'>
@@ -64,6 +64,9 @@ const Footer: React.FC<FooterProps> = () => {
           </Route>
           <Route exact path="/mystore">
             <MyStore />
+          </Route>
+          <Route exact path="/mychat">
+            <MyChat chatId={''} />
           </Route>
 
         </IonReactRouter>
