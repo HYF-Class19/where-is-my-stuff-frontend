@@ -53,6 +53,7 @@ export const Settings: React.FC = () => {
                             <IonIcon slot="start" icon={personRemoveOutline} />
                             <IonLabel>Privacy </IonLabel>
                         </IonItem>
+                      
                     </IonList>
                 </IonContent>
             </IonPage>

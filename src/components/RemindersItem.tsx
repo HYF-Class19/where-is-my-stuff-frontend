@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { child, onValue } from 'firebase/database';
-import { dbRef } from '../database/db';
+import { dbRef } from '../database/realTimeDatabase';
 
 import { IonIcon, IonItem, IonItemDivider, IonLabel, IonList } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";

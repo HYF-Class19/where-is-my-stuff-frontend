@@ -14,6 +14,7 @@ import {
 import { enterOutline } from "ionicons/icons";
 import "./Navbar.css";
 import { logoutUser } from "../../authentication/auth";
+import { useHistory } from "react-router-dom";
 
 import LendOut from "./LendOut";
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -30,6 +31,14 @@ const Navbar: React.FC = () => {
       console.log("logout failed");
     }
   };
+
+  const history = useHistory();
+
+  const handleBorrow = () => {
+    history.push("/borrow");
+  }
+
+
   return (
     <>
       <IonPage id="main-content">
@@ -59,7 +68,9 @@ const Navbar: React.FC = () => {
         <IonContent className="btn-home">
           <IonTabButton tab="radio" href="/borrow">
             <IonIcon icon={enterOutline} className="ion-icon-borrow" />
-            <IonButton  href="/borrow">Borrowed</IonButton>
+            <IonButton 
+              onClick={handleBorrow}
+            >Borrowed</IonButton>
           </IonTabButton>
         </IonContent>
       </IonPage>

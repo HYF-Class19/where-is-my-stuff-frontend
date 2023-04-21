@@ -1,7 +1,7 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
 import UserList from "../components/UserList"
 import React, { useState, useEffect } from 'react';
-import { dbRef } from "../database/db";
+import { dbRef } from "../database/realTimeDatabase";
 import { child, onValue } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
@@ -49,15 +49,15 @@ export const Lend: React.FC = () => {
         <UserList items={items}
           detailComponentProps={
             {
-            isOpen: true,
-            onDismiss: handleClose,
-            itemName: "",
-            description: "",
-            to: "",
-            on: "",
-            reminder: "",
+              isOpen: true,
+              onDismiss: handleClose,
+              itemName: "",
+              description: "",
+              to: "",
+              on: "",
+              reminder: "",
+            }
           }
-        }
         />
       </IonContent>
     </IonPage>

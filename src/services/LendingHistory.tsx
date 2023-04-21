@@ -1,6 +1,6 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
-import { dbRef, auth } from "../database/db"
+import { dbRef, auth } from "../database/realTimeDatabase"
 import { child, onValue } from "firebase/database"
 
 export const LendingHistory: React.FC = () => {

@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
-import { auth } from "../database/db";
+import { auth } from "../database/realTimeDatabase";
 
 export async function registerUser(email: string, password: string) {
   try {

@@ -23,7 +23,7 @@ import { OverlayEventDetail } from "@ionic/core/components";
 import { exitOutline } from "ionicons/icons";
 import { child, push, set } from "firebase/database";
 import { User } from "firebase/auth";
-import { dbRef, auth } from "../../database/db";
+import { dbRef, auth } from "../../database/realTimeDatabase";
 
 function createItem(name: string, description: string, borrowerName: string, lendingDate: string, reminderDate: string, email: string) {
   const sanitizedEmail = email.replace(/[\\[\].#$]/g, '-');
