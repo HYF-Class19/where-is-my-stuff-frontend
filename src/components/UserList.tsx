@@ -31,11 +31,6 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
   const userId = currentUser?.uid;
 
   const emailInfo = currentUser?.email?.replace(/[\\[\].#$]/g, '-').split('@gmailcom');
-
-
-
-
-
   const handleClick = async (item: { id: string, name: string }) => {
     const itemDetailsRef = child(dbRef, `users/${emailInfo}/items/${item.id}`);
     const itemDetailsSnapshot = await get(itemDetailsRef);
@@ -71,12 +66,14 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
               }
               return result;
             },
-            [{ letter: '', items: [] }]
+            []
           )
         );
       });
     }
-  },[items]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   const closeModal = () => setIsOpen(false);
 
