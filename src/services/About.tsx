@@ -1,11 +1,14 @@
-import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonButton } from '@ionic/react';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonButton, IonButtons } from '@ionic/react';
 import React from 'react';
 
 const About: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar color="primary">
+                <IonToolbar >
+                    <IonButtons>
+                        <IonButton routerLink="/profile" routerDirection="none">Back</IonButton>
+                    </IonButtons>
                     <IonTitle>About LendIt</IonTitle>
                 </IonToolbar>
             </IonHeader>

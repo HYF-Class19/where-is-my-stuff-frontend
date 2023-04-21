@@ -1,28 +1,12 @@
-import {  IonButtons, IonContent, IonHeader, IonItem, IonList, IonMenu, IonPage, IonTitle, IonToolbar, IonMenuButton, IonIcon, IonLabel, IonToggle } from "@ionic/react";
+import { IonButtons, IonContent, IonHeader, IonItem, IonList, IonMenu, IonPage, IonTitle, IonToolbar, IonMenuButton, IonIcon, IonLabel, IonToggle } from "@ionic/react";
 import {
     calendar, language, locateOutline, moonOutline, personRemoveOutline
 } from "ionicons/icons";
-import { useEffect, useState } from "react";
 import Menu from "../components/Home/Menu";
+import { useThemeContext } from "../context/ThemeContext";
 
 export const Settings: React.FC = () => {
-    const [isDarkMode, setIsDarkMode] = useState(true);
-
-    function toggleDarkMode(ev: CustomEvent) {
-        const isDark = ev.detail.checked;
-        setIsDarkMode(isDark);
-        document.body.classList.toggle('dark', isDark);
-    }
-
-    useEffect(() => {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-        setIsDarkMode(prefersDark.matches);
-        document.body.classList.toggle('dark', prefersDark.matches);
-    }, [
-        setIsDarkMode
-
-    ]);
-
+    const { isDarkMode, toggleDarkMode } = useThemeContext();
 
     return (
         <>
@@ -30,7 +14,6 @@ export const Settings: React.FC = () => {
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons slot="start">
-                           
                         </IonButtons>
                         <IonTitle>Settings</IonTitle>
                     </IonToolbar>
@@ -51,7 +34,7 @@ export const Settings: React.FC = () => {
                             <IonLabel>Appearance</IonLabel>
                             <IonToggle id="themeToggle" slot="end"
                                 checked={isDarkMode}
-                                onIonChange={toggleDarkMode}  
+                                onIonChange={toggleDarkMode}
                             ></IonToggle>
                         </IonItem>
                         <IonItem routerLink="/history" routerDirection="none">
@@ -77,3 +60,4 @@ export const Settings: React.FC = () => {
         </>
     );
 }
+
