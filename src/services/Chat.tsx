@@ -72,42 +72,41 @@ export const Chat: React.FC = () => {
                 </IonHeader>
                 <IonContent >
                     <IonCard>
-                    <IonInput style={{
-                        marginTop: "30px",
-                        marginLeft: "20px",
-                        border: "1px solid blue",
-                        boxSizing: "border-box",
-                        borderRadius: "4px",
-                        padding: "10px",
-                        fontSize: "16px",
+                        <IonInput style={{
+                            marginTop: "30px",
+                            marginLeft: "20px",
+                            border: "1px solid blue",
+                            boxSizing: "border-box",
+                            borderRadius: "4px",
+                            padding: "10px",
+                            fontSize: "16px",
 
-                    }}
-                        placeholder="Phone Number"
-                        value={phoneNumber}
-                        type="number"
-                        onIonChange={(e) => setPhoneNumber(e.detail.value!)}
-                    />
-                    <IonInput style={{
+                        }}
+                            placeholder="Phone Number"
+                            value={phoneNumber}
+                            type="number"
+                            onIonChange={(e) => setPhoneNumber(e.detail.value!)}
+                        />
+                        <IonInput style={{
 
-                        marginLeft: "20px",
-                        height: "130px",
-                        MaxWidth: "200px",
-                        border: "1px solid blue",
-                        boxSizing: "border-box",
-                        borderRadius: "4px",
-                        padding: "10px",
-                        fontSize: "16px",
-                        lineHeight: "24px",
-                        color: "white",
-                        backgroundColor: "primary",
+                            marginLeft: "20px",
+                            height: "130px",
+                            MaxWidth: "200px",
+                            border: "1px solid blue",
+                            boxSizing: "border-box",
+                            borderRadius: "4px",
+                            padding: "10px",
+                            fontSize: "16px",
+                            lineHeight: "24px",
 
-                    }}
-                        placeholder="Message"
-                        value={message}
-                        onIonChange={(e) => setMessage(e.detail.value!)}
-                    />
+
+                        }}
+                            placeholder="Message"
+                            value={message}
+                            onIonChange={(e) => setMessage(e.detail.value!)}
+                        />
                     </IonCard>
-                 
+
                     <IonButton
                         expand="block"
                         onClick={handleSendSMS}
