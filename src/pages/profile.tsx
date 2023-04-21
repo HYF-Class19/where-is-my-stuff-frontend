@@ -1,6 +1,6 @@
 import React from "react";
 import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuButton, IonMenuToggle, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, albumsOutline, atSharp, chatbox, idCardSharp, personAddOutline, atCircleOutline, textSharp, callSharp, location, storefrontSharp, addCircle } from "ionicons/icons";
+import { callOutline, homeOutline, settingsOutline, logOut, helpCircleOutline, albumsOutline, atSharp, chatbox, idCardSharp, personAddOutline, atCircleOutline, textSharp, callSharp, location, storefrontSharp, addCircle, chatbubble } from "ionicons/icons";
 import "./styles/Profile.css";
 import { logoutUser } from "../authentication/auth";
 import { auth } from "../database/realTimeDatabase";
@@ -64,7 +64,7 @@ export const Profile: React.FC = () => {
                         </IonItem>
                         <IonItem routerLink="/chat" routerDirection="none">
                             <IonIcon slot="start" icon={chatbox} />
-                            <IonLabel>Chat</IonLabel>
+                            <IonLabel>SMS</IonLabel>
                         </IonItem>
 
                         <IonMenuToggle>
@@ -122,6 +122,10 @@ export const Profile: React.FC = () => {
                         <IonItem routerLink="/myStore" routerDirection="none">
                             <IonIcon slot="start" icon={storefrontSharp}></IonIcon>
                             <IonLabel>My store</IonLabel>
+                        </IonItem>
+                        <IonItem routerLink="/myChat" routerDirection="none">
+                            <IonIcon slot="start" color="success" icon={chatbubble}></IonIcon>
+                            <IonLabel>My Chat</IonLabel>
                         </IonItem>
                     </IonCard>
                 </IonContent>
