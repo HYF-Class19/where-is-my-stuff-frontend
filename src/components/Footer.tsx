@@ -71,8 +71,20 @@ const Footer: React.FC = () => {
 
         </IonReactRouter>
       </IonRouterOutlet>
-
-      <IonTabBar slot="bottom" className='tab-bar-footer'>
+      <IonTabBar style={{
+        '--background': 'white',
+        '--color-selected': 'black',
+        '--color': 'black',
+        // width
+        '--min-width': '0px',
+        '--max-width': '100%',
+        '--width': '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        padding: '10px'
+      }} slot="bottom" className='tab-bar-footer'>
         <IonTabButton tab="profile" href="/profile">
           <IonIcon icon={personOutline} />
           <IonLabel>Profile</IonLabel>

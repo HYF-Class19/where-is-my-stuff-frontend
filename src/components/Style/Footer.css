@@ -1,11 +1,8 @@
-.footer-ion-tab {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+@media screen and (max-width: 480px) {
+  .tab-bar-footer {
+    flex-direction: column;
   }
-  
-  @media only screen and (max-width: 600px) {
-    .footer-ion-tab {
-      flex-direction: column;
-    }
+  .tab-bar-footer ion-tab-button {
+    margin-bottom: 10px;
   }
+}
