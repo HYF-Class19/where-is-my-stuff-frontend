@@ -1,8 +1,21 @@
+.footer-ion-tab{
+  height: max-content;
+}
+
+
+.tab-bar-footer{
+  bottom: 20px;
+  border-radius: 16px;
+  height: 10vh;
+}
+
+
 @media screen and (max-width: 480px) {
   .tab-bar-footer {
     flex-direction: column;
   }
   .tab-bar-footer ion-tab-button {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 }
+
