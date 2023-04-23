@@ -72,10 +72,8 @@ const Footer: React.FC = () => {
         </IonReactRouter>
       </IonRouterOutlet>
       <IonTabBar style={{
-        '--background': 'white',
-        '--color-selected': 'black',
-        '--color': 'black',
-        // width
+        // '--color-selected': 'black',
+        // '--color': 'black',
         '--min-width': '0px',
         '--max-width': '100%',
         '--width': '100%',
@@ -83,7 +81,7 @@ const Footer: React.FC = () => {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        padding: '10px'
+        // padding: '1px'
       }} slot="bottom" className='tab-bar-footer'>
         <IonTabButton tab="profile" href="/profile">
           <IonIcon icon={personOutline} />
@@ -97,11 +95,11 @@ const Footer: React.FC = () => {
 
         <IonTabButton tab="exit" href="/lend">
           <IonIcon icon={exitOutline} />
-          <IonLabel>Lend out items</IonLabel>
+          <IonLabel>Lend items</IonLabel>
         </IonTabButton>
         <IonTabButton tab="enter" href='/borrow'>
           <IonIcon icon={enterOutline} />
-          <IonLabel>Borrowed items</IonLabel>
+          <IonLabel>Borrow items</IonLabel>
         </IonTabButton>
         <IonTabButton tab="notifications" href="/reminder">
           <IonIcon icon={notificationsOutline} />

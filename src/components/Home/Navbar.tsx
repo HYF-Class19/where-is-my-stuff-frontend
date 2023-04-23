@@ -67,8 +67,8 @@ const Navbar: React.FC = () => {
         </IonContent>
         <IonContent className="btn-home">
           <IonTabButton tab="radio" href="/borrow">
-            <IonIcon icon={enterOutline} className="ion-icon-borrow" />
-            <IonButton 
+            <IonIcon icon={enterOutline} className="ion-icon" />
+            <IonButton
               onClick={handleBorrow}
             >Borrowed</IonButton>
           </IonTabButton>

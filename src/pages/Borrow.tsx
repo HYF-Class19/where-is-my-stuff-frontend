@@ -7,19 +7,15 @@ import {
     IonContent,
     IonButtons,
     IonBackButton,
-    IonCard,
     IonCardContent,
     IonCardHeader,
     IonCardTitle,
     IonItem,
-    IonList,
-    IonButton,
-    IonInput
-} from '@ionic/react';
+    IonList} from '@ionic/react';
 
 import { useState, useEffect, Key } from "react";
 import { getFirestore, collectionGroup, getDocs } from "firebase/firestore";
-import { getDatabase, ref, push, onValue } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 import '../services/styles/chat.css'
 
@@ -41,18 +37,8 @@ interface ChatMessage {
 export const Borrow: React.FC = () => {
     const [items, setItems] = useState<Item[]>([]);
     const [expanded, setExpanded] = useState(false);
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
-    const [message, setMessage] = useState("");
-
-    const sendMessage = () => {
-        const db = getDatabase();
-        const chatRef = ref(db, `chats/${items[0].itemId}`);
-        push(chatRef, {
-            message,
-        });
-        setMessage("");
-    };
-
+    const [, setMessages] = useState<ChatMessage[]>([]);
+    // const [message, setMessage] = useState("");
 
 
     useEffect(() => {
@@ -111,7 +97,7 @@ export const Borrow: React.FC = () => {
                         <IonItem key={item.itemId}
                             onClick={() => handleCardClick(item.itemId)}
                         >
-                            <IonCard style={{
+                            <div style={{
                                 maxWidth: "90%",
                                 maxHeight: "100%",
                                 margin: "auto",
@@ -129,11 +115,7 @@ export const Borrow: React.FC = () => {
                                     </>
                                 )}
 
-                                <IonCard style={{
-                                    border: "2px",
-                                    borderColor: "black",
-                                    borderStyle: "solid",
-                                }}>
+                                {/* <IonCard>
 
                                     <IonItem>
                                         {messages.map((msg) => (
@@ -151,9 +133,10 @@ export const Borrow: React.FC = () => {
 
                                         placeholder="Type your message here..."
                                     />
-                                    <IonButton onClick={sendMessage}>Send</IonButton>
-                                </IonCard>
-                            </IonCard>
+                                <IonButton onClick={sendMessage}>Send</IonButton>
+                                </IonCard> */}
+                                
+                            </div>
                         </IonItem>
                     ))}
                 </IonList>
