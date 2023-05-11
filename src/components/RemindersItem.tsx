@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { child, onValue } from 'firebase/database';
-import { dbRef } from '../database/realTimeDatabase';
+import { dbRef, initMessaging } from '../database/realTimeDatabase';
 
 import { IonIcon, IonItem, IonItemDivider, IonLabel, IonList } from "@ionic/react";
 import { chevronForward } from "ionicons/icons";
@@ -9,12 +9,15 @@ import { Reminder, useReminder } from "../hooks/UseReminder";
 import { ReminderDetailsModal } from '../Modal/Details';
 
 
-interface ReminderProps { }
+interface ReminderProps {
+
+}
 
 export const RemindersItem: React.FC<ReminderProps> = () => {
     const { selectedReminder, isModalOpen, handleModalDismiss, handleItemClick } = useReminder();
     const [reminders, setReminders] = useState<Reminder[]>([]);
     const [noReminders, setNoReminders] = useState<boolean>(false);
+    const [fcmToken, setFcmToken] = useState<string>();
     const auth = getAuth();
     const currentUser = auth.currentUser;
 
@@ -52,45 +55,84 @@ export const RemindersItem: React.FC<ReminderProps> = () => {
     }, [currentUser]);
 
     useEffect(() => {
-        const handleNotificationClick = () => {
-            // Handle notification click event here
-            console.log('Notification clicked');
-        };
+        const messaging = initMessaging();
+        return messaging;
 
-        const showNotification = (title: string, options?: NotificationOptions) => {
-            if (Notification.permission === 'granted') {
-                const notification = new Notification(title, options);
-                notification.addEventListener('click', handleNotificationClick);
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then(permission => {
-                    if (permission === 'granted') {
-                        const notification = new Notification(title, options);
-                        notification.addEventListener('click', handleNotificationClick);
-                    }
-                });
-            }
-        };
+    }, []);
 
-        const intervalId = setInterval(() => {
-            reminders.forEach((reminder) => {
-                const today = new Date();
-                const reminderDate = reminder.reminderDate ? new Date(reminder.reminderDate) : undefined;
-                if (reminderDate && reminderDate.getDate() === today.getDate() && reminderDate.getMonth() === today.getMonth() && reminderDate.getFullYear() === today.getFullYear()) {
-                    const title = 'Reminder';
-                    const body = `You have to return ${reminder.name} to ${reminder.borrowerName} today!`;
-                    const options: NotificationOptions = {
-                        body,
-                        icon: '/assets/icon/notification.png',
-                        vibrate: [200, 100, 200],
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        if (currentUser && fcmToken) {
+            const sanitizedEmail = currentUser.email?.replace(/[\\[\].#$]/g, '-');
+            const emailInfo = sanitizedEmail?.split('@gmailcom');
+            const userRemindersRef = child(dbRef, `users/${emailInfo}/items`);
+
+            const sendNotification =
+                async ({ token, reminderName, reminderDate }: { token: string; reminderName: string; reminderDate: string; }) => {
+                    const message = {
+                        to: token,
+                        sound: 'default',
+                        title: 'Reminder',
+                        body: `You have a reminder for ${reminderName} on ${reminderDate}`,
+                        data: { data: 'goes here' },
+                        _displayInForeground: true,
                     };
 
-                    showNotification(title, options);
-                }
-            });
-        }, 10000); // check every 1 minute
+                    await fetch('https://fcm.googleapis.com//v1/projects/where-is-my-stuff-89c9a/send', {
+                        method: 'POST',
+                        headers: {
+                            Accept: 'application/json',
+                            'Accept-encoding': 'gzip, deflate',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(message),
+                    });
 
-        return () => clearInterval(intervalId);
-    }, [reminders]);
+                };
+
+
+
+
+
+
+            const unsubscribe = onValue(userRemindersRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    snapshot.forEach((reminderSnapshot) => {
+                        const reminderId = reminderSnapshot.key as string;
+                        const reminderData = reminderSnapshot.val();
+                        const reminderDate = new Date(reminderData.reminderDate);
+                        const now = new Date();
+                        const timeDifference = reminderDate.getTime() - now.getTime();
+                        const daysUntilReminder = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                        if (daysUntilReminder === 1) {
+                            sendNotification({
+                                token: fcmToken,
+                                reminderName: reminderData.name,
+                                reminderDate: reminderData.reminderDate,
+                            });
+                        }
+                    });
+                } else {
+                    setNoReminders(true);
+                }
+            }, (error) => {
+                console.error(error);
+            });
+
+            return () => unsubscribe();
+        }
+    }, [currentUser, fcmToken]);
+
+
+
 
 
     return (
